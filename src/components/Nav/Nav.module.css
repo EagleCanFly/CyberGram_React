@@ -1,0 +1,13 @@
+.nav {
+	grid-area: nav;
+	background:#003366;
+  }
+.menu > li {
+	list-style: none;
+	text-transform: uppercase;
+	padding: 5px 0;
+  }
+.nav a {
+	color: goldenrod;
+	text-decoration: none;
+}
