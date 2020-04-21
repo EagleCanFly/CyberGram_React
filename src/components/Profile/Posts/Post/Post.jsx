@@ -1,10 +1,18 @@
 import React from "react";
 import s from "./Post.module.css";
-const Post = () => {
+const Post = (props) => {
 	return (
-		<div className={s.avatar}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1200px-Anonymous.svg.png" alt="" srcset=""/>
-        </div>
+		<div className={s.post}>
+			<div className={s.avatar}>
+				<img
+					src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1200px-Anonymous.svg.png"
+					alt=""
+					srcset=""
+				/>
+				<div className={s.likes}>Likes {props.likes}</div>
+			</div>
+			<p className={s.message}>{props.message}</p>
+		</div>
 	);
 };
 

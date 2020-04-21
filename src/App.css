@@ -1,3 +1,6 @@
+body {
+  font-family: 'Roboto';
+}
 .app-wrapper {
   display: grid;
   grid-template-rows: 100px 1fr 1fr;
@@ -7,3 +10,15 @@
     "nav main main"
     "nav main main";
 }
+.content-wrapper {
+	grid-area: main;
+	background: #eaeaea;
+	height: auto;
+	width: 100%;
+	background-size: cover;
+  }
+  .content-wrapper img {
+	  width: auto;
+	  height: 20rem;
+	  
+  }

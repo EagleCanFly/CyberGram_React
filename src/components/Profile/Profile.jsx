@@ -5,9 +5,9 @@ const Profile = () => {
 	return (
 		<main className={s.main}>
 			<img src="http://dermapes.pl/wp-content/uploads/2017/10/4k-retro-80s-wallpaper-fhd-1920x1080.jpg" alt=""/>
-				<Post />
-				<Post />
-				<Post />
+				<Post likes = '0' message="Hey dude" />
+				<Post likes = '5' message="How's it going?"/>
+				<Post likes = '11' message="Not too bad"/>
 		</main>
 	);
 };

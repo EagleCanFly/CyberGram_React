@@ -1,6 +1,7 @@
 .nav {
 	grid-area: nav;
 	background:#003366;
+	height: 85vh;
   }
 .menu > li {
 	list-style: none;
@@ -10,4 +11,7 @@
 .nav a {
 	color: goldenrod;
 	text-decoration: none;
+}
+.nav .active {
+	color: #fff;
 }
