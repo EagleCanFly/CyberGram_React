@@ -1,31 +1,38 @@
 import React from "react";
 import s from "./Messages.module.css";
 import { NavLink } from "react-router-dom";
-const Messages = () => {
+
+const Dialog = (props) => {
+	return (
+		<NavLink to={"/messages/" + props.id} className={s.dialog}>
+			{props.name}
+		</NavLink>
+	);
+};
+
+const Chat = (props) => {
+	return <p>{props.text}</p>;
+};
+
+const Messages = (props) => {
+	
+	let dialog = props.names.map((d) => {
+		return <Dialog name={d.name} id={d.id} />;
+	});
+
+	let chat = props.chat.map((c) => {
+		return <Chat text={c.text} />;
+	});
+
 	return (
 		<div className={s.messagesWrapper}>
 			<div className={s.dialogsColumn}>
 				<h3 className={s.title}>Dialogs</h3>
-				<div className={s.messages}>
-					<NavLink to="/messages/vitalik" className={s.dialog}>
-						Vitalik
-					</NavLink>
-					<NavLink to="/messages/kristina" className={s.dialog}>
-						Kristina
-					</NavLink>
-					<NavLink to="/messages/dmitriy" className={s.dialog}>
-						Dmitriy
-					</NavLink>
-					<NavLink to="/messages/Yulya" className={s.dialog}>
-						Yulya
-					</NavLink>
-				</div>
+
+				<div className={s.messages}>{dialog}</div>
 			</div>
 			<div className={s.chatingColumn}>
-				<div className={s.chating}>
-					<p>Привет</p>
-					<p>Kak dela?</p>
-				</div>
+				<div className={s.chating}>{chat}</div>
 			</div>
 		</div>
 	);
