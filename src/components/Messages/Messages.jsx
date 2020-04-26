@@ -1,28 +1,16 @@
 import React from "react";
 import s from "./Messages.module.css";
-import { NavLink } from "react-router-dom";
 import Chat from "./Chat/Chat";
 import Dialog from "./Dialog/Dialog";
 
-// const Dialog = (props) => {
-// 	return (
-// 		<NavLink to={"/messages/" + props.id} className={s.dialog}>
-// 			{props.name}
-// 		</NavLink>
-// 	);
-// };
-
-// const Chat = (props) => {
-// 	return <p>{props.text}</p>;
-// };
 
 const Messages = (props) => {
-	
-	let dialog = props.names.map((d) => {
+
+	let dialog = props.state.dialogData.map((d) => {
 		return <Dialog name={d.name} id={d.id} />;
 	});
 
-	let chat = props.chat.map((c) => {
+	let chat = props.state.chatData.map((c) => {
 		return <Chat text={c.text} />;
 	});
 
