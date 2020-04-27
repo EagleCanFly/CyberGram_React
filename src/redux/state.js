@@ -1,3 +1,4 @@
+import {renderEntireDocument} from "./../render";
 let state = {
 	profilePage: {
 		msgInfo: [
@@ -65,4 +66,11 @@ let state = {
 	},
 };
 
+export let addPost = (textMessage) => {
+	let msg = {
+		text: textMessage,
+	};
+	state.messagesPage.chatData.push(msg);
+	renderEntireDocument();
+}
 export default state;

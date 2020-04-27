@@ -14,7 +14,14 @@ const Messages = (props) => {
 		return <Chat text={c.text} />;
 	});
 
+	let textContent = React.createRef();
+	
+	let addMessage = () => {
+		props.addPost(textContent.current.value);
+	};
+
 	return (
+		<div>
 		<div className={s.messagesWrapper}>
 			<div className={s.dialogsColumn}>
 				<h3 className={s.title}>Dialogs</h3>
@@ -24,6 +31,9 @@ const Messages = (props) => {
 			<div className={s.chatingColumn}>
 				<div className={s.chating}>{chat}</div>
 			</div>
+		</div>
+			<textarea name="" ref={textContent} cols="30" rows="10"></textarea>
+			<button onClick = {addMessage}>addMessage</button>
 		</div>
 	);
 };
