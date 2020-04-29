@@ -1,4 +1,8 @@
-import {renderEntireDocument} from "./../render";
+
+let renderEntireDocument = () => {
+
+};
+
 let state = {
 	profilePage: {
 		msgInfo: [
@@ -49,6 +53,7 @@ let state = {
 				name: "Julia",
 			},
 		],
+		updateText: "123",
 	},
 	sidebar: {
 		friends: [
@@ -71,6 +76,17 @@ export let addPost = (textMessage) => {
 		text: textMessage,
 	};
 	state.messagesPage.chatData.push(msg);
+	state.messagesPage.updateText = '';
 	renderEntireDocument();
-}
+};
+
+export let updateText = (textMessage) => {
+	state.messagesPage.updateText = textMessage;
+	renderEntireDocument();
+};
+
+export let render = (observer) => {
+	renderEntireDocument = observer;
+};
+
 export default state;

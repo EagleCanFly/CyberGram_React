@@ -1,8 +1,22 @@
+import React from "react";
+import ReactDOM from "react-dom";
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import state from "./redux/state";
-import {renderEntireDocument} from "./render";
-  
+import state, { render } from "./redux/state";
+import App from "./App";
+
+
+let renderEntireDocument = () => {
+    ReactDOM.render(
+        <React.StrictMode>
+			<App state={state} />
+		</React.StrictMode>,
+		document.getElementById("root")
+        );
+    };
+    
+    
+render(renderEntireDocument);
 renderEntireDocument(state);
 
 // If you want your app to work offline and load faster, you can change
