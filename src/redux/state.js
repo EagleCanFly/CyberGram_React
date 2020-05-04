@@ -1,5 +1,7 @@
 const UPDATE_TEXT = 'UPDATE-TEXT';
 const ADD_POST = 'ADD-POST';
+const SEND_WALL_POST = 'SEND-WALL-POST';
+const UPDATE_PROFILE_TEXT = 'UPDATE-PROFILE-TEXT';
 
 let store = {
 	_state: {
@@ -18,6 +20,7 @@ let store = {
 					message: "Not too bad",
 				},
 			],
+			updatedText: '12',
 		},
 		messagesPage: {
 			chatData: [
@@ -100,6 +103,17 @@ let store = {
 		} else if (action.type === UPDATE_TEXT) {
 			this._state.messagesPage.updateText = action.message;
 		this.renderEntireDocument(this._state);
+		} else if (action.type === SEND_WALL_POST) {
+			let msg = {
+				likes: Math.floor(Math.random() * 10),
+				message: action.message, //???
+			};
+			this._state.profilePage.msgInfo.push(msg);
+			this._state.profilePage.updatedText = "";
+			this.renderEntireDocument(this._state);
+		} else if (action.type === UPDATE_PROFILE_TEXT) {
+			this._state.profilePage.updatedText = action.message;
+			this.renderEntireDocument(this._state);
 		}
 	}
 };
@@ -114,6 +128,19 @@ export const addPostCreator = (text) => {
 export const updateTextCreator = (text) => {
 	return {
 		type: UPDATE_TEXT,
+		message: text,
+	}
+}
+
+export const sendWallPostCreator = (text) => {
+	return {
+		type: SEND_WALL_POST,
+		message: text
+	}
+};
+export const updateWallPostCreator = (text) => {
+	return {
+		type: UPDATE_PROFILE_TEXT,
 		message: text,
 	}
 }
