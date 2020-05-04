@@ -1,5 +1,8 @@
+const UPDATE_TEXT = 'UPDATE-TEXT';
+const ADD_POST = 'ADD-POST';
+
 let store = {
-	state: {
+	_state: {
 		profilePage: {
 			msgInfo: [
 				{
@@ -66,23 +69,53 @@ let store = {
 			],
 		},
 	},
-	addPost: (textMessage) => {
+	getState() {
+		return this._state;
+	},
+	addPost(textMessage) {
 		let msg = {
 			text: textMessage,
 		};
-		this.state.messagesPage.chatData.push(msg);
-		this.state.messagesPage.updateText = "";
-		this.renderEntireDocument();
+		this._state.messagesPage.chatData.push(msg);
+		this._state.messagesPage.updateText = "";
+		this.renderEntireDocument(this._state);
 	},
-	updateText: (textMessage) => {
-		this.state.messagesPage.updateText = textMessage;
-		this.renderEntireDocument();
+	updateText(textMessage) {
+		this._state.messagesPage.updateText = textMessage;
+		this.renderEntireDocument(this._state);
 	},
-	render: (observer) => {
+	render(observer) {
 		this.renderEntireDocument = observer;
 	},
 	renderEntireDocument: () => {},
+
+	dispatch(action) {
+		if (action.type === ADD_POST) {
+			let msg = {
+				text: action.message,
+			};
+			this._state.messagesPage.chatData.push(msg);
+			this._state.messagesPage.updateText = "";
+			this.renderEntireDocument(this._state);
+		} else if (action.type === UPDATE_TEXT) {
+			this._state.messagesPage.updateText = action.message;
+		this.renderEntireDocument(this._state);
+		}
+	}
 };
 
+export const addPostCreator = (text) => {
+	return {
+		type: ADD_POST,
+		message: text,
+	};
+};
+
+export const updateTextCreator = (text) => {
+	return {
+		type: UPDATE_TEXT,
+		message: text,
+	}
+}
 
 export default store;

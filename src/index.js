@@ -6,18 +6,18 @@ import store from "./redux/state";
 import App from "./App";
 
 
-let renderEntireDocument = () => {
+let renderEntireDocument = (state) => {
     ReactDOM.render(
         <React.StrictMode>
-			<App state={store} />
+			<App state={state} dispatch={store.dispatch.bind(store)}/>
 		</React.StrictMode>,
 		document.getElementById("root")
         );
     };
     
     
-store.render(renderEntireDocument);
-renderEntireDocument(store.state);
+    renderEntireDocument(store.getState());
+    store.render(renderEntireDocument);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

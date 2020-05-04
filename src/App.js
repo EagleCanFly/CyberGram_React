@@ -10,16 +10,14 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
 function App(props) {
-	
 	return (
 		<BrowserRouter>
 			<div className="app-wrapper">
 				<Header />
-
-				<Nav state={props.state.sidebar}/>
+				<Nav state={props.state.sidebar}/> 
 				<div className="content-wrapper">
 					<Route path="/profile" render={() => <Profile state={props.state.profilePage}/>} />
-					<Route path="/messages" render={() => <Messages state={props} />} />
+					<Route path="/messages" render={() => <Messages state={props.state.messagesPage} dispatch={props.dispatch} />} />
 					<Route path="/news" component={News} />
 					<Route path="/music" component={Music} />
 					<Route path="/settings" component={Settings} />
@@ -27,6 +25,6 @@ function App(props) {
 			</div>
 		</BrowserRouter>
 	);
+	
 }
-
 export default App;

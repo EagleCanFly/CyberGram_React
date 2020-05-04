@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
 const Profile = (props) => {
-
 	let wallPost = props.state.msgInfo.map((p) => {
 		return <Post likes={p.likes} message={p.message} />;
 	});
@@ -15,9 +14,7 @@ const Profile = (props) => {
 			{/* <Post likes="0" message="Hey dude" />
 			<Post likes="5" message="How's it going?" />
 			<Post likes="11" message="Not too bad" /> */}
-			<div>
-				{wallPost}
-			</div>
+			<div>{wallPost}</div>
 		</main>
 	);
 };

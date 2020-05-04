@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Messages.module.css";
 import Chat from "./Chat/Chat";
 import Dialog from "./Dialog/Dialog";
+import {addPostCreator, updateTextCreator} from './../../redux/state'
 
 const Messages = (props) => {
 	let dialog = props.state.dialogData.map((d) => {
@@ -15,10 +16,10 @@ const Messages = (props) => {
 	let textContent = React.createRef();
 
 	let addMessage = () => {
-		props.addPost(textContent.current.value);
+		props.dispatch(addPostCreator(textContent.current.value));
 	};
 	let updateTextarea = () => {
-		props.updateText( textContent.current.value); 
+		props.dispatch(updateTextCreator(textContent.current.value));
 	};
 
 	return (

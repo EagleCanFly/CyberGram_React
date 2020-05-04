@@ -3,12 +3,10 @@ import s from "./Nav.module.css";
 import { NavLink } from "react-router-dom";
 import Friend from "./Friend/Friend";
 
-
 const Nav = (props) => {
-
 	let friends = props.state.friends.map((friend) => {
-		return <Friend name={friend.name} avatar={friend.avatar} />
-	})
+		return <Friend name={friend.name} avatar={friend.avatar} />;
+	});
 
 	return (
 		<nav className={s.nav}>
@@ -41,7 +39,7 @@ const Nav = (props) => {
 			</ul>
 
 			<div className={s.friends}>
-				<hr/>
+				<hr />
 				<p className={s.lable}>Friends</p>
 				{friends}
 			</div>
