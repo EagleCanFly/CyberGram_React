@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
-import { sendWallPostCreator, updateWallPostCreator } from "../../redux/state";
+import { sendWallPostCreator, updateWallPostCreator } from "../../redux/profilePageReducer";
 
 const Profile = (props) => {
 	let wallPost = props.state.msgInfo.map((p) => {

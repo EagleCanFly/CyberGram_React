@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Messages.module.css";
 import Chat from "./Chat/Chat";
 import Dialog from "./Dialog/Dialog";
-import {addPostCreator, updateTextCreator} from './../../redux/state'
+import {addPostCreator, updateTextCreator} from './../../redux/messagesPageReducer'
 
 const Messages = (props) => {
 	let dialog = props.state.dialogData.map((d) => {
