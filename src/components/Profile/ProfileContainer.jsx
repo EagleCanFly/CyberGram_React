@@ -1,18 +1,15 @@
 import React from "react";
 import { sendWallPostCreator, updateWallPostCreator } from "../../redux/profilePageReducer";
 import Profile from "./Profile";
-import store from "../../redux/redux-store";
-
-
 
 const ProfileContainer = (props) => {
-	let state = store.getState().profilePage.msgInfo;
+	let state = props.store.getState().profilePage.msgInfo;
 
 	const onClickHandler = (text) => {
-		props.dispatch(sendWallPostCreator(text));
+		props.store.dispatch(sendWallPostCreator(text));
 	};
 	const onChangeHandler = (text) => {
-		props.dispatch(updateWallPostCreator(text));
+		props.store.dispatch(updateWallPostCreator(text));
 	};
 
 	return (
