@@ -2,9 +2,9 @@ import React from "react";
 import s from "./Messages.module.css";
 import Chat from "./Chat/Chat";
 import Dialog from "./Dialog/Dialog";
-import {addPostCreator, updateTextCreator} from './../../redux/messagesPageReducer'
 
 const Messages = (props) => {
+	
 	let dialog = props.state.dialogData.map((d) => {
 		return <Dialog name={d.name} id={d.id} />;
 	});
@@ -16,10 +16,10 @@ const Messages = (props) => {
 	let textContent = React.createRef();
 
 	let addMessage = () => {
-		props.dispatch(addPostCreator(textContent.current.value));
+		props.addMessage(textContent.current.value)
 	};
-	let updateTextarea = () => {
-		props.dispatch(updateTextCreator(textContent.current.value));
+	let updateTextArea = () => {
+		props.updateTextArea(textContent.current.value);
 	};
 
 	return (
@@ -35,7 +35,7 @@ const Messages = (props) => {
 				</div>
 			</div>
 			<textarea
-				onChange={updateTextarea}
+				onChange={updateTextArea}
 				ref={textContent}
 				cols="20"
 				rows="5"

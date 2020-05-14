@@ -4,14 +4,16 @@ import Post from "./Posts/Post/Post";
 import { sendWallPostCreator, updateWallPostCreator } from "../../redux/profilePageReducer";
 
 const Profile = (props) => {
-	let wallPost = props.state.msgInfo.map((p) => {
+	let wallPost = props.state.map((p) => {
 		return <Post likes={p.likes} message={p.message} />;
 	});
-	const onClickHandler = (event) => {
-		props.dispatch(sendWallPostCreator(props.state.updatedText));
+	let textArea = React.createRef();
+
+	const onClickHandler = () => {
+		props.onClickHandler(textArea.current.value);
 	};
 	const onChangeHandler = (event) => {
-		props.dispatch(updateWallPostCreator(event.target.value));
+		props.onChangeHandler(event.target.value);
 	};
 
 	return (
@@ -24,6 +26,7 @@ const Profile = (props) => {
 				onChange={onChangeHandler}
 				placeholder="Enter your message"
 				value={props.state.updatedText}
+				ref={textArea}
 			></textarea>
 			<button onClick={onClickHandler}>Add msg</button>
 			<div>{wallPost}</div>
