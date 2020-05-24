@@ -16,22 +16,26 @@ let initialState = {
 			message: "Not too bad",
 		},
 	],
-	updatedText: "12",
+	updatedText: "",
 };
 
 const profilePageReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case SEND_WALL_POST:
-			let msg = {
-				likes: Math.floor(Math.random() * 10),
-				message: action.message,
+		case SEND_WALL_POST: {
+			return {
+				...state,
+				msgInfo: [
+					...state.msgInfo,
+					{ likes: Math.floor(Math.random() * 10), message: action.message },
+				],
+				updatedText: "",
 			};
-			state.msgInfo.push(msg);
-			state.updatedText = "";
-			return state;
+		}
 		case UPDATE_PROFILE_TEXT:
-			state.updatedText = action.message;
-			return state;
+			return {
+				...state,
+				updatedText: action.message,
+			};
 		default:
 			return state;
 	}

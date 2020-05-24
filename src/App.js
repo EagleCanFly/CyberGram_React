@@ -8,16 +8,17 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import store from "./redux/redux-store"; // удалить и сделать контейнерный компонент для Nav
 
-function App(props) {
+function App() {
 	return (
 		<BrowserRouter>
 			<div className="app-wrapper">
 				<Header />
-				<Nav state={props.state.sidebar}/> 
+				<Nav state={store.getState().sidebar} />
 				<div className="content-wrapper">
-					<Route path="/profile" render={() => <ProfileContainer store={props.store}/>} />
-					<Route path="/messages" render={() => <MessagesContainer store={props.store} />} />
+					<Route path="/profile" render={() => <ProfileContainer />} />
+					<Route path="/messages" render={() => <MessagesContainer />} />
 					<Route path="/news" component={News} />
 					<Route path="/music" component={Music} />
 					<Route path="/settings" component={Settings} />
@@ -25,6 +26,5 @@ function App(props) {
 			</div>
 		</BrowserRouter>
 	);
-	
 }
 export default App;

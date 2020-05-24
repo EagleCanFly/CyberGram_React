@@ -4,7 +4,6 @@ import Chat from "./Chat/Chat";
 import Dialog from "./Dialog/Dialog";
 
 const Messages = (props) => {
-	
 	let dialog = props.state.dialogData.map((d) => {
 		return <Dialog name={d.name} id={d.id} />;
 	});

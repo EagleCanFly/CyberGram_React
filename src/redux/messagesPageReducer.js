@@ -1,5 +1,5 @@
-const UPDATE_TEXT = 'UPDATE-TEXT';
-const ADD_POST = 'ADD-POST';
+const UPDATE_TEXT = "UPDATE-TEXT";
+const ADD_POST = "ADD-POST";
 
 let initialState = {
 	chatData: [
@@ -34,23 +34,25 @@ let initialState = {
 			name: "Julia",
 		},
 	],
-	updateText: "123",
+	updateText: "",
 };
 
 const messagesPageReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case UPDATE_TEXT:
-			state.updateText = action.message;
-			return state;
-		case ADD_POST:
-			let msg = {
-				text: action.message,
+			return {
+				...state,
+				updateText: action.message,
 			};
-			state.chatData.push(msg);
-			state.updateText = "";
-			return state;
+		case ADD_POST:
+			return {
+				...state,
+				chatData: [...state.chatData, { text: action.message }], // такой синтаксис использован вместо .push
+				updateText: "",
+			};
+
 		default:
-			return state;
+			return { ...state };
 	}
 };
 export default messagesPageReducer;

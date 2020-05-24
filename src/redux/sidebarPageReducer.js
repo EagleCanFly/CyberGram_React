@@ -15,6 +15,6 @@ let initialState = {
 };
 
 const sidebarPageReducer = (state = initialState, action) => {
-	return state;
+	return {...state};
 };
 export default sidebarPageReducer;

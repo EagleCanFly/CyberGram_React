@@ -1,20 +1,27 @@
-import React from "react";
-import { sendWallPostCreator, updateWallPostCreator } from "../../redux/profilePageReducer";
+import {
+	sendWallPostCreator,
+	updateWallPostCreator,
+} from "../../redux/profilePageReducer";
 import Profile from "./Profile";
+import { connect } from "react-redux";
 
-const ProfileContainer = (props) => {
-	let state = props.store.getState().profilePage.msgInfo;
-
-	const onClickHandler = (text) => {
-		props.store.dispatch(sendWallPostCreator(text));
+const mapStateToProps = (state) => {
+	
+	return {
+		msgInfo: state.profilePage.msgInfo,
+		updatedText: state.profilePage.updatedText,
 	};
-	const onChangeHandler = (text) => {
-		props.store.dispatch(updateWallPostCreator(text));
-	};
-
-	return (
-		<Profile onClickHandler={onClickHandler} onChangeHandler={onChangeHandler} state={state}/>
-	);
+	
 };
-
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onClickCallback: (text) => {
+			dispatch(sendWallPostCreator(text));
+		},
+		onChangeCallback: (text) => {
+			dispatch(updateWallPostCreator(text));
+		},
+	};
+};
+let ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile);
 export default ProfileContainer;
