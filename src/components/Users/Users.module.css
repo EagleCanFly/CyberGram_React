@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    padding: 10px;
+}
+.avatar {
+    width: 90px !important;
+    height: 140px !important;
+    margin-bottom: 10px;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.column span {
+    padding: 4px
+}
+.column div {
+    padding: 4px
+}
+.item {
+    font-weight: bold;
+}
+.item span {
+    font-weight: normal;
+}
