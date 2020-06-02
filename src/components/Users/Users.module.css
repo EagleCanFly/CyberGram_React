@@ -23,3 +23,11 @@
 .item span {
     font-weight: normal;
 }
+.currentPage {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.numbers span {
+    cursor: pointer;
+;
+}

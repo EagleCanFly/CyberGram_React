@@ -1,31 +1,17 @@
 const FOLLOW = "FOLLOW",
     UNFOLLOW = "UNFOLLOW",
-    SRC = 'https://st.kp.yandex.net/images/actor_iphone/iphone360_25584.jpg';
+    SET_USERS = "SET_USERS",
+    SET_USERS_PAGE = "SET_USERS_PAGE",
+    SET_TOTAL_COUNT = "SET_TOTAL_COUNT",
+    SET_IS_FETCHING = "SET_IS_FETCHING"
 
 let initialState = {
-    users: [
-        {
-            id: 1,
-            name: "Brad",
-            lastName: "Pitt",
-            isFollowed: true,
-            avatarSrc: SRC,
-            status: 'Hey',
-            country: 'Russia',
-            city: 'Semiluki'
-        },
-        {
-            id: 2,
-            name: "Mihal",
-            lastName: "Palich",
-            isFollowed: false,
-            avatarSrc: 'https://4fun.one/uploads/posts/t/1574275682.jpeg',
-            status: 'sup',
-            country: 'Japan',
-            city: 'Kyoto'
-        }
-    ]
-
+    users: [],
+    userPages: 4,
+    initialPage: 10,
+    totalCount: 0,
+    currentPage: 1,
+    isFetching: false
 };
 
 const usersPageReducer = (state = initialState, action) => {
@@ -53,6 +39,27 @@ const usersPageReducer = (state = initialState, action) => {
                 })
             }
         }
+        case SET_USERS:
+            return {
+                ...state,
+                // users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case SET_USERS_PAGE:
+            return {
+                ...state,
+                currentPage: action.page
+            }
+        case SET_TOTAL_COUNT:
+            return {
+                ...state,
+                totalCount: action.total
+            }
+        case SET_IS_FETCHING:
+            return  {
+                ...state,
+                isFetching: action.value
+            }
         default:
             return state;
     }
@@ -70,5 +77,30 @@ export const unFollowAC = (userID) => {
         id: userID
     }
 };
+export const setUsersAC = (users) => {
+    return {
+        type: SET_USERS,
+        users: users
+    }
+};
+export const setUsersPageAC = (page) => {
+    return {
+        type: SET_USERS_PAGE,
+        page: page  // если свойство и параметр имеют одинаковое имя, то можно указать только параметр
+    }
+};
+export const setTotalCountAC = (total) => {
+    return {
+        type: SET_TOTAL_COUNT,
+        total: total
+    }
+}
+export const setIsFetcingAC = (value) => {
+    return {
+        type: SET_IS_FETCHING,
+        value
+    }
+}
+
 
 export default usersPageReducer;
