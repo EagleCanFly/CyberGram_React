@@ -18,7 +18,7 @@ function App() {
                 <Header/>
                 <Nav state={store.getState().sidebar}/>
                 <div className="content-wrapper">
-                    <Route path="/profile" render={() => <ProfileContainer/>}/>
+                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                     <Route path="/messages" render={() => <MessagesContainer/>}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>

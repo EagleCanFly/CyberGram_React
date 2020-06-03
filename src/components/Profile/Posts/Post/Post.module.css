@@ -12,6 +12,7 @@
 .post {
     display: flex;
     align-items: center;
+    padding: 10px 5px;
 }
 .message {
     padding-left: 30px;

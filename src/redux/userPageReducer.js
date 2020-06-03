@@ -3,7 +3,7 @@ const FOLLOW = "FOLLOW",
     SET_USERS = "SET_USERS",
     SET_USERS_PAGE = "SET_USERS_PAGE",
     SET_TOTAL_COUNT = "SET_TOTAL_COUNT",
-    SET_IS_FETCHING = "SET_IS_FETCHING"
+    TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 let initialState = {
     users: [],
@@ -11,7 +11,7 @@ let initialState = {
     initialPage: 10,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: true
 };
 
 const usersPageReducer = (state = initialState, action) => {
@@ -55,7 +55,7 @@ const usersPageReducer = (state = initialState, action) => {
                 ...state,
                 totalCount: action.total
             }
-        case SET_IS_FETCHING:
+        case TOGGLE_IS_FETCHING:
             return  {
                 ...state,
                 isFetching: action.value
@@ -65,39 +65,40 @@ const usersPageReducer = (state = initialState, action) => {
     }
 };
 
-export const followAC = (userID) => {
+// action creators
+export const follow = (userID) => {
     return {
         type: FOLLOW,
         id: userID
     }
 };
-export const unFollowAC = (userID) => {
+export const unfollow = (userID) => {
     return {
         type: UNFOLLOW,
         id: userID
     }
 };
-export const setUsersAC = (users) => {
+export const setUsers = (users) => {
     return {
         type: SET_USERS,
         users: users
     }
 };
-export const setUsersPageAC = (page) => {
+export const setUsersPage = (page) => {
     return {
         type: SET_USERS_PAGE,
         page: page  // если свойство и параметр имеют одинаковое имя, то можно указать только параметр
     }
 };
-export const setTotalCountAC = (total) => {
+export const setTotalCount = (total) => {
     return {
         type: SET_TOTAL_COUNT,
         total: total
     }
 }
-export const setIsFetcingAC = (value) => {
+export const toggleIsFetching = (value) => {
     return {
-        type: SET_IS_FETCHING,
+        type: TOGGLE_IS_FETCHING,
         value
     }
 }
