@@ -7,4 +7,11 @@
 	width: 100px;
 	padding-left: 20px;
   }
+  .login {
+	  float: right;
+      padding: 15px;
+  }
+  header div {
+	  color: white;
+  }
   
