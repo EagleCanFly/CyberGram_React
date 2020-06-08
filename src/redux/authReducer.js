@@ -1,3 +1,5 @@
+import {authAPI} from "../DAL/api";
+
 const SET_LOGIN_DATA = "SET_LOGIN_DATA";
 
 let initialData = {
@@ -29,5 +31,13 @@ const authReducer = (state = initialData, action) => {
 export const setLoginData = (login) => {
     return {type: SET_LOGIN_DATA, login}
 };
+
+export const authorize = () => {
+    return (dispatch) => {
+        authAPI.authRequest().then(data => {
+            dispatch(setLoginData(data));
+        })
+    }
+}
 
 export default authReducer;

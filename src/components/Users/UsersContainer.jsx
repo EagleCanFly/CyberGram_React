@@ -6,30 +6,18 @@ import {
     setTotalCount,
     setUsers,
     setUsersPage,
-    unfollow
+    unfollow, toggleBtnDisabled, getUsers, getUsersOnUpdate
 } from "../../redux/userPageReducer";
 import React from "react";
-import * as axios from "axios";
 import Loader from "../common/Loader";
 
 class UsersAPI extends React.Component {
     componentDidMount() {
-        this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.userPages}&page=${this.props.state.currentPage}`).then(response => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(response.data.items)
-            this.props.setTotalCount(response.data.totalCount / 100);
-        })
+        this.props.getUsers(this.props.state.userPages, this.props.state.currentPage);
     }
 
     onPageChange = (pageNumber) => {
-        this.props.setUsersPage(pageNumber);
-        this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.userPages}&page=${pageNumber}`).then(response => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(response.data.items)
-        });
-
+        this.props.getUsersOnUpdate(this.props.state.userPages, this.props.state.currentPage, pageNumber);
     }
 
     render() {
@@ -37,6 +25,7 @@ class UsersAPI extends React.Component {
             {this.props.state.isFetching ? <Loader/> : <Users state={this.props.state}
                                                               follow={this.props.follow}
                                                               unfollow={this.props.unfollow}
+                                                              toggleBtnDisabled={this.props.toggleBtnDisabled}
                                                               setUsers={this.props.setUsers}
                                                               setUsersPage={this.props.setUsersPage}
                                                               setTotalCount={this.props.setTotalCount}
@@ -57,5 +46,8 @@ export default connect(mapStateToProps, {
     setUsers,
     setUsersPage,
     setTotalCount,
-    toggleIsFetching
+    toggleIsFetching,
+    toggleBtnDisabled,
+    getUsers,
+    getUsersOnUpdate
 })(UsersAPI);

@@ -1,3 +1,5 @@
+import {profileAPI} from "../DAL/api";
+
 const SEND_WALL_POST = "SEND-WALL-POST",
     UPDATE_PROFILE_TEXT = "UPDATE-PROFILE-TEXT",
     SET_PROFILE_DATA = "SET_PROFILE_DATA";
@@ -49,13 +51,13 @@ const profilePageReducer = (state = initialState, action) => {
 };
 export default profilePageReducer;
 
-export const sendWallPostCreator = (text) => {
+export const sendWallPost = (text) => {
     return {
         type: SEND_WALL_POST,
         message: text,
     };
 };
-export const updateWallPostCreator = (text) => {
+export const updateWallPost = (text) => {
     return {
         type: UPDATE_PROFILE_TEXT,
         message: text,
@@ -65,5 +67,13 @@ export const setProfileData = (data) => {
     return {
         type: SET_PROFILE_DATA,
         data
+    }
+}
+
+export const setProfile = (profileNumber) => {
+    return (dispatch) => {
+        profileAPI.setProfile(profileNumber).then(response => {
+            dispatch(setProfileData(response));
+        })
     }
 }

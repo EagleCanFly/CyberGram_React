@@ -1,9 +1,12 @@
+import {userAPI} from "../DAL/api";
+
 const FOLLOW = "FOLLOW",
     UNFOLLOW = "UNFOLLOW",
     SET_USERS = "SET_USERS",
     SET_USERS_PAGE = "SET_USERS_PAGE",
     SET_TOTAL_COUNT = "SET_TOTAL_COUNT",
-    TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+    TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING",
+    TOGGLE_BTN_DISABLED = "TOGGLE_BTN_DISABLED"
 
 let initialState = {
     users: [],
@@ -11,10 +14,12 @@ let initialState = {
     initialPage: 10,
     totalCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    isBtnDisabled: []
 };
 
 const usersPageReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case FOLLOW: {
 
@@ -22,7 +27,7 @@ const usersPageReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(user => {
                     if (user.id === action.id) {
-                        return {...user, isFollowed: false}
+                        return {...user, followed: true}
                     }
                     return user;
                 })
@@ -33,7 +38,7 @@ const usersPageReducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.map(user => {
                     if (user.id === action.id) {
-                        return {...user, isFollowed: true}
+                        return {...user, followed: false}
                     }
                     return user;
                 })
@@ -56,9 +61,16 @@ const usersPageReducer = (state = initialState, action) => {
                 totalCount: action.total
             }
         case TOGGLE_IS_FETCHING:
-            return  {
+            return {
                 ...state,
                 isFetching: action.value
+            }
+        case TOGGLE_BTN_DISABLED:
+            return {
+                ...state,
+                isBtnDisabled: (action.isFetching) // загружается?
+                    ? [...state.isBtnDisabled, action.userId] // да - дописываем айди в массив
+                    : state.isBtnDisabled.filter(id => id !== action.userId) // нет - удаляем айди из массива
             }
         default:
             return state;
@@ -66,13 +78,13 @@ const usersPageReducer = (state = initialState, action) => {
 };
 
 // action creators
-export const follow = (userID) => {
+export const followAC = (userID) => {
     return {
         type: FOLLOW,
         id: userID
     }
 };
-export const unfollow = (userID) => {
+export const unfollowAC = (userID) => {
     return {
         type: UNFOLLOW,
         id: userID
@@ -100,6 +112,59 @@ export const toggleIsFetching = (value) => {
     return {
         type: TOGGLE_IS_FETCHING,
         value
+    }
+}
+export const toggleBtnDisabled = (userId, isFetching) => {
+    return {
+        type: TOGGLE_BTN_DISABLED,
+        isFetching,
+        userId
+    }
+}
+export const getUsers = (userPages, currentPage) => {
+    return (dispatch) => {
+        dispatch(toggleIsFetching(true));
+
+        userAPI.getUsers(userPages, currentPage).then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalCount(data.totalCount / 100));
+        })
+    }
+}
+export const getUsersOnUpdate = (userPages, currentPage, pageNumber) => {
+    return (dispatch) => {
+        dispatch(setUsersPage(pageNumber));
+        dispatch(toggleIsFetching(true));
+
+        userAPI.getUsers(userPages, currentPage).then(data => {
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+        })
+    }
+}
+export const follow = (UserId) => {
+    return (dispatch) => {
+        dispatch(toggleBtnDisabled(UserId, true));
+        userAPI.follow(UserId).then(response => {
+            if (response.resultCode === 0) {
+
+            }
+            dispatch(followAC(UserId));
+            dispatch(toggleBtnDisabled(UserId, false));
+        });
+    }
+}
+export const unfollow = (UserId) => {
+    return (dispatch) => {
+        dispatch(toggleBtnDisabled(UserId, true));
+        userAPI.unfollow(UserId).then(response => {
+            if (response.resultCode === 0) {
+
+            }
+            dispatch(unfollowAC(UserId));
+            dispatch(toggleBtnDisabled(UserId, false));
+        });
     }
 }
 

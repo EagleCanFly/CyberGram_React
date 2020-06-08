@@ -9,7 +9,7 @@ const Nav = (props) => {
     });
 
     return (
-        <nav className={s.nav}>
+        <nav className={s.nav} key={props.id}>
             <ul className={s.menu}>
                 <li>
                     <NavLink to="/profile" activeClassName={s.active}>

@@ -12,10 +12,10 @@ const Profile = (props) => {
     let textArea = React.createRef();
 
     const onClickHandler = () => {
-        props.onClickCallback(textArea.current.value);
+        props.sendWallPost(textArea.current.value);
     };
     const onChangeHandler = (event) => {
-        props.onChangeCallback(event.target.value); //event.target.value
+        props.updateWallPost(event.target.value); //event.target.value
     };
     if (!props.profile) {
         return <Loader/>

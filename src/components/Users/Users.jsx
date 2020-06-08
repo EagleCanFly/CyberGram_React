@@ -17,15 +17,17 @@ const Users = (props) => {
                 props.state.users.map(user => <div className={s.container} key={user.id}>
                         <div className={s.column}>
                             <NavLink to={'/profile/' + user.id}>
-                                <img className={s.avatar} src={user.photos.small != null ? user.photos.small : anonymous}
+                                <img className={s.avatar} src={!user.photos.small === false ? user.photos.small : anonymous}
                                      alt=""/>
                             </NavLink>
 
-                            {user.isFollowed ? <button onClick={() => {
-                                    props.follow(user.id)
-                                }}>Unfollow</button> :
-                                <button onClick={() => {
-                                    props.unfollow(user.id)
+                            {user.followed ?
+                                <button disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
+                                    props.unfollow(user.id);
+                                }}>Unfollow</button>
+
+                                : <button disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
+                                    props.follow(user.id);
                                 }}>Follow</button>}
                         </div>
                         <div className={s.column}>

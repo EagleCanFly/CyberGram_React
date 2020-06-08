@@ -1,22 +1,19 @@
 import {
-    sendWallPostCreator, setProfileData,
-    updateWallPostCreator,
+    sendWallPost, setProfile, setProfileData, updateWallPost
 } from "../../redux/profilePageReducer";
 import React from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
-import * as axios from "axios";
 import {withRouter} from "react-router-dom";
 
 class ProfileAPI extends React.Component {
     componentDidMount() {
-        let userId = this.props.match.params.userId;
+        let userId = this.props.match.params.userId; // достаем данные о текущем пользователе
         if (!userId) {
-             userId = 11;
+            userId = 11;
         }
-        axios.get("https://social-network.samuraijs.com/api/1.0/profile/" + userId).then(response => {
-            this.props.setProfileData(response.data);
-        })
+
+        this.props.setProfile(userId);
     }
 
     render() {
@@ -33,20 +30,9 @@ const mapStateToProps = (state) => {
     };
 
 };
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onClickCallback: (text) => {
-            dispatch(sendWallPostCreator(text));
-        },
-        onChangeCallback: (text) => {
-            dispatch(updateWallPostCreator(text));
-        },
-        setProfileData: (data) => {
-            dispatch(setProfileData(data));
-        },
-    };
-};
 
-const ProfileAPIwithData = withRouter(ProfileAPI); // HOC withRouter добавляет новые свойства компоненту
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileAPIwithData);
+const ProfileAPIwithData = withRouter(ProfileAPI); // HOC withRouter добавляет новые свойства компоненту. В данном случае
+// нужен ID текущего пользователя из URL
+
+export default connect(mapStateToProps, {sendWallPost, updateWallPost, setProfileData, setProfile})(ProfileAPIwithData);
