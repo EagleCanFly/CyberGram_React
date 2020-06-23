@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
 import Loader from "../common/Loader";
+import anonymous from "../../images/anonymous.png"
 
 const Profile = (props) => {
 
@@ -15,7 +16,7 @@ const Profile = (props) => {
         props.sendWallPost(textArea.current.value);
     };
     const onChangeHandler = (event) => {
-        props.updateWallPost(event.target.value); //event.target.value
+        props.updateWallPost(event.target.value);
     };
     if (!props.profile) {
         return <Loader/>
@@ -24,7 +25,16 @@ const Profile = (props) => {
     return (
         <main className={s.main}>
             <div className={s.profile}>
-                <div className={s.avatar}><img src={props.profile.photos.large} alt="avatar"/></div>
+                <div className={s.avatar}><img src={props.profile.photos.large ? props.profile.photos.large : anonymous} alt="avatar"/></div>
+                { props.statusEditMode
+                    ? <input className={s.statusInput}
+                             autoFocus={true}
+                             type="text"
+                             onBlur={() => props.toggleEditMode(false)}
+                             value={props.localStatus}
+                             onChange={(event) => props.onStatusChange(event.currentTarget.value)}/>
+                    : <span className={s.status}
+                           onDoubleClick={() => props.toggleEditMode(true)} >Status: {props.status || 'Enter your status'}</span>}
                 <div>Nickname: {props.profile.aboutMe}</div>
                 <div>Looking for a job: {props.profile.lookingForAJob ? "Yes" : "No"}</div>
             </div>

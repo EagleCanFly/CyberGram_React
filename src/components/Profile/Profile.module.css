@@ -17,13 +17,23 @@
 .avatar img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 .profile {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
     padding: 5px;
 }
 .profile div {
     padding: 5px;
+}
+.statusInput {
+}
+.status {
+    padding: 5px;
+}
+.status:hover {
+    background: goldenrod;
 }

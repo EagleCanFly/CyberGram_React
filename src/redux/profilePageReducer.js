@@ -2,7 +2,9 @@ import {profileAPI} from "../DAL/api";
 
 const SEND_WALL_POST = "SEND-WALL-POST",
     UPDATE_PROFILE_TEXT = "UPDATE-PROFILE-TEXT",
-    SET_PROFILE_DATA = "SET_PROFILE_DATA";
+    SET_PROFILE_DATA = "SET_PROFILE_DATA",
+    SET_STATUS = "SET_STATUS",
+    GET_STATUS = "GET_STATUS"
 
 let initialState = {
     msgInfo: [
@@ -20,7 +22,8 @@ let initialState = {
         },
     ],
     updatedText: "",
-    profile: null
+    profile: null,
+    status: ''
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -45,6 +48,12 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.data
             }
+        case SET_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default:
             return state;
     }
@@ -69,11 +78,33 @@ export const setProfileData = (data) => {
         data
     }
 }
+export const setStatus = (status) => {
+    return {
+        type: SET_STATUS,
+        status
+    }
+}
+export const getStatus = (status) => {
+    return {
+        type: GET_STATUS,
+        status
+    }
+}
 
-export const setProfile = (profileNumber) => {
+export const setProfile = (profileNumber, userId) => {
     return (dispatch) => {
         profileAPI.setProfile(profileNumber).then(response => {
             dispatch(setProfileData(response));
+        })
+        profileAPI.getStatus(userId).then(response => {
+            dispatch(setStatus(response))
+        })
+    }
+}
+export const updateStatusText = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+           dispatch(setStatus(status))
         })
     }
 }

@@ -12,9 +12,9 @@ const instance = axios.create({
 
 export const authAPI = {
     authRequest() {
-        return instance.get("auth/me", { withCredentials: true}).then(response => {
-            return response.data;
-        })
+        return instance.get("auth/me", { withCredentials: true})//.then(response => {
+        //    return response;
+    //    })
     },
 }
 export const profileAPI = {
@@ -23,6 +23,14 @@ export const profileAPI = {
             return response.data;
         })
     },
+    updateStatus(status) {
+        return instance.put("profile/status", {status: status},{ withCredentials: true});
+    },
+    getStatus(userId) {
+        return instance.get("profile/status/" + userId, { withCredentials: true}).then(response => {
+            return response.data;
+        })
+    }
 }
 
 export const userAPI = {

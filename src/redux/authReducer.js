@@ -10,16 +10,19 @@ let initialData = {
 
     },
     messages: [],
-    resultCode: null
+    resultCode: null,
+    isAuth: false
 }
 
 
 const authReducer = (state = initialData, action) => {
+
     switch (action.type) {
         case SET_LOGIN_DATA: {
             return {
                 ...state,
-                ...action.login
+                ...action.data,
+                isAuth: true,
             }
         }
         default: {
@@ -28,14 +31,20 @@ const authReducer = (state = initialData, action) => {
     }
 }
 
-export const setLoginData = (login) => {
-    return {type: SET_LOGIN_DATA, login}
+export const setLoginData = (data) => {
+    return {
+        type: SET_LOGIN_DATA,
+        data,
+    }
 };
 
 export const authorize = () => {
+
     return (dispatch) => {
-        authAPI.authRequest().then(data => {
-            dispatch(setLoginData(data));
+        authAPI.authRequest().then(response => {
+           if (response.data.resultCode === 0) {
+                dispatch(setLoginData(response.data));
+           }
         })
     }
 }

@@ -2,25 +2,18 @@ import React from "react";
 import s from "./Users.module.css";
 import anonymous from "./../../images/anonymous.png";
 import {NavLink} from "react-router-dom";
+import Pagination from "react-js-pagination";
 
 
 const Users = (props) => {
-    let pages = [];
-    let totalPages = Math.ceil(props.state.totalCount / props.state.userPages); // получаем количество страниц пользователей
-
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-    }
 
     return (<div>
             {
                 props.state.users.map(user => <div className={s.container} key={user.id}>
                         <div className={s.column}>
                             <NavLink to={'/profile/' + user.id}>
-                                <img className={s.avatar} src={!user.photos.small === false ? user.photos.small : anonymous}
-                                     alt=""/>
+                                <img className={s.avatar} src={!user.photos.small === false ? user.photos.small : anonymous} alt=""/>
                             </NavLink>
-
                             {user.followed ?
                                 <button disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
                                     props.unfollow(user.id);
@@ -38,10 +31,15 @@ const Users = (props) => {
                     </div>
                 )}
 
-            <div className={s.numbers}>Pages: {pages.map(page => <span
-                className={page === props.state.currentPage ? s.currentPage : ''} onClick={() => {
-                props.onPageChange(page);
-            }}> {page} </span>)}</div>
+            <Pagination
+                activePage={props.state.currentPage}
+                itemsCountPerPage={10}
+                totalItemsCount={props.state.totalCount}
+                pageRangeDisplayed={8}
+                onChange={props.onPageChange}
+                linkClass={s.page}
+                activeClass={s.currentPage}
+                innerClass={s.pages_row}/>
         </div>
     )
 

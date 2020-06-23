@@ -127,18 +127,20 @@ export const getUsers = (userPages, currentPage) => {
 
         userAPI.getUsers(userPages, currentPage).then(data => {
             dispatch(toggleIsFetching(false));
+            dispatch(setTotalCount(data.totalCount));
             dispatch(setUsers(data.items));
-            dispatch(setTotalCount(data.totalCount / 100));
+
         })
     }
 }
-export const getUsersOnUpdate = (userPages, currentPage, pageNumber) => {
+export const getUsersOnUpdate = (userPages, pageNumber) => {
     return (dispatch) => {
-        dispatch(setUsersPage(pageNumber));
+
         dispatch(toggleIsFetching(true));
 
-        userAPI.getUsers(userPages, currentPage).then(data => {
+        userAPI.getUsers(userPages, pageNumber).then(data => {
             dispatch(toggleIsFetching(false));
+            dispatch(setUsersPage(pageNumber));
             dispatch(setUsers(data.items));
         })
     }
