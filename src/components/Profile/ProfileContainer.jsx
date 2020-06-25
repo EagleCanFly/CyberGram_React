@@ -1,6 +1,5 @@
 import {
-    getStatusText,
-    sendWallPost, setProfile, setProfileData, setStatus, updateStatusText, updateWallPost
+    sendWallPost, setProfile, setProfileData, updateStatusText, updateWallPost
 } from "../../redux/profilePageReducer";
 import React from "react";
 import {connect} from "react-redux";
@@ -8,6 +7,7 @@ import Profile from "./Profile";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
+
 
 class ProfileContainer extends React.Component {
     state = {
@@ -21,12 +21,13 @@ class ProfileContainer extends React.Component {
 
     }
     toggleEditMode = (value) => {
-        if (value === false)  this.props.updateStatusText(this.state.status);
-       this.setState({
-           statusEditMode: value
-       })
+        if (value === false) this.props.updateStatusText(this.state.status);
+        this.setState({
+            statusEditMode: value
+        })
 
     }
+
     componentDidMount() {
 
         let userId = this.props.match.params.userId; // достаем данные о текущем пользователе
@@ -47,7 +48,6 @@ class ProfileContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-
     return {
         msgInfo: state.profilePage.msgInfo,
         updatedText: state.profilePage.updatedText,
@@ -59,7 +59,7 @@ const mapStateToProps = (state) => {
 
 
 export default compose(
-    withAuthRedirect,
+     withAuthRedirect, // при обновлении редиректит на /login т.к. ответ от api true приходит позже рендера
     withRouter,
     connect(mapStateToProps, {sendWallPost, updateWallPost, setProfileData, setProfile, updateStatusText})
 )(ProfileContainer);

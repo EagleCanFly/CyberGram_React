@@ -1,10 +1,11 @@
 .header {
 	grid-area: header;
-	background: #001a33	;
+	background: #4c75a3	;
+    border-radius: 0 0 15px 15px;
   }
   .header img {
-	height: auto;
-	width: 100px;
+	height: 55px;
+	width: 55px;
 	padding-left: 20px;
   }
   .login {

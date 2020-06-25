@@ -1,6 +1,7 @@
 import {authAPI} from "../DAL/api";
 
-const SET_LOGIN_DATA = "SET_LOGIN_DATA";
+const SET_LOGIN_DATA = 'SET_LOGIN_DATA',
+    TOGGLE_IS_AUTH = 'TOGGLE_IS_AUTH'
 
 let initialData = {
     data: {
@@ -10,19 +11,26 @@ let initialData = {
 
     },
     messages: [],
-    resultCode: null,
+    resultCode: 0,
     isAuth: false
 }
 
 
 const authReducer = (state = initialData, action) => {
-
+console.log(state.isAuth)
     switch (action.type) {
         case SET_LOGIN_DATA: {
             return {
                 ...state,
                 ...action.data,
                 isAuth: true,
+            }
+        }
+        case TOGGLE_IS_AUTH: {
+            return {
+                ...state,
+                ...action.data,
+                isAuth: action.value
             }
         }
         default: {
@@ -37,16 +45,44 @@ export const setLoginData = (data) => {
         data,
     }
 };
+export const toggleIsAuth = (value,data) => {
+    return {
+        type: TOGGLE_IS_AUTH,
+        value,
+        data
+    }
+};
 
 export const authorize = () => {
 
     return (dispatch) => {
         authAPI.authRequest().then(response => {
-           if (response.data.resultCode === 0) {
+            if (response.data.resultCode === 0) {
                 dispatch(setLoginData(response.data));
-           }
+            }
         })
     }
 }
+export const login = (email, password) => {
+    return (dispatch) => {
+        authAPI.login(email, password).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(toggleIsAuth(true, response.data));
+                dispatch(authorize());
+            }
+        })
+    }
+}
+export const logout = () => {
+    return (dispatch) => {
+        authAPI.logout().then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setLoginData(null));
+                dispatch(toggleIsAuth(false, response.data));
+            }
+        })
+    }
+}
+
 
 export default authReducer;

@@ -1,19 +1,22 @@
 .nav {
 	grid-area: nav;
-	background:#003366;
+	background: #eaeaea;
 	height: 85vh;
   }
+.menu {
+	padding: 0;
+}
 .menu > li {
 	list-style: none;
 	text-transform: uppercase;
 	padding: 5px 0;
   }
 .nav a {
-	color: goldenrod;
+	color: #0077B5;
 	text-decoration: none;
 }
 .nav .active {
-	color: #fff;
+	color: #aaa;
 }
 .friends {
 	text-align: center;

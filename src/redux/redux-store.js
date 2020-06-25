@@ -6,11 +6,6 @@ import usersPageReducer from "./userPageReducer";
 import authReducer from "./authReducer";
 import thunk from "redux-thunk";
 
-
-
-
-
-
 let redusers = combineReducers({
     messagesPage: messagesPageReducer,
     profilePage: profilePageReducer,

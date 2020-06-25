@@ -18,6 +18,7 @@ const Profile = (props) => {
     const onChangeHandler = (event) => {
         props.updateWallPost(event.target.value);
     };
+
     if (!props.profile) {
         return <Loader/>
     }

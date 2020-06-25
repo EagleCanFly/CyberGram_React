@@ -44,11 +44,11 @@ const Nav = (props) => {
                 </li>
             </ul>
 
-            <div className={s.friends}>
-                <hr/>
-                <p className={s.lable}>Friends</p>
-                {friends}
-            </div>
+            {/*<div className={s.friends}>*/}
+            {/*    <hr/>*/}
+            {/*    <p className={s.lable}>Friends</p>*/}
+            {/*    {friends}*/}
+            {/*</div>*/}
         </nav>
     );
 };
