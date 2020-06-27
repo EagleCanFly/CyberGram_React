@@ -7,7 +7,6 @@ const Login = (props) => {
 
     const onSubmit = parameters => {
         props.login(parameters.email, parameters.password);
-        debugger
         if (props.isAuth === true) {
             return  <Redirect to='/profile'/>
         }

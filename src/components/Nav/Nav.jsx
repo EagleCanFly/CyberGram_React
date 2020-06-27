@@ -1,12 +1,8 @@
 import React from "react";
 import s from "./Nav.module.css";
 import {NavLink} from "react-router-dom";
-import Friend from "./Friend/Friend";
 
 const Nav = (props) => {
-    let friends = props.state.friends.map((friend) => {
-        return <Friend name={friend.name} avatar={friend.avatar}/>;
-    });
 
     return (
         <nav className={s.nav} key={props.id}>
@@ -43,12 +39,6 @@ const Nav = (props) => {
                     </NavLink>
                 </li>
             </ul>
-
-            {/*<div className={s.friends}>*/}
-            {/*    <hr/>*/}
-            {/*    <p className={s.lable}>Friends</p>*/}
-            {/*    {friends}*/}
-            {/*</div>*/}
         </nav>
     );
 };

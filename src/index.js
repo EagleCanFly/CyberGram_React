@@ -4,18 +4,21 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import store from "./redux/redux-store";
 import App from "./App";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
 
 // let renderEntireDocument = (state) => {
-	ReactDOM.render(
-		<Provider store={store}>
-			<React.StrictMode>
-				<App />
-			</React.StrictMode>
-		</Provider>,
-		document.getElementById("root")
-	);
+ReactDOM.render(
+    <Provider store={store}>
+        <React.StrictMode>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </React.StrictMode>
+    </Provider>,
+    document.getElementById("root")
+);
 // };
 
 // renderEntireDocument(store.getState());

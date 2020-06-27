@@ -56,9 +56,10 @@ export const toggleIsAuth = (value,data) => {
 export const authorize = () => {
 
     return (dispatch) => {
-        authAPI.authRequest().then(response => {
+       return  authAPI.authRequest().then(response => {
             if (response.data.resultCode === 0) {
-                dispatch(setLoginData(response.data));
+                dispatch(toggleIsAuth(true, response.data));
+                // dispatch(setLoginData(response.data));
             }
         })
     }
