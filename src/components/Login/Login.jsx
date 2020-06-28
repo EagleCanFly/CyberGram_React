@@ -1,6 +1,5 @@
 import React from "react";
 import {Field, Form} from "react-final-form";
-import s from "./Login.module.css"
 import {Redirect} from "react-router-dom";
 
 const Login = (props) => {

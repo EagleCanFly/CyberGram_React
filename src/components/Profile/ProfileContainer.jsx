@@ -1,50 +1,38 @@
 import {
     sendWallPost, setProfile, setProfileData, updateStatusText, updateWallPost
 } from "../../redux/profilePageReducer";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import Profile from "./Profile";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
+const ProfileContainer = (props) => {
 
-class ProfileContainer extends React.Component {
-    state = {
-        status: this.props.status,
-        statusEditMode: false
-    }
-    onStatusChange = (status) => {
-        this.setState({
-            status: status
-        })
+    const [statusEditMode, setStatusEditMode] = useState(false);
+    const [status, setStatus] = useState('Enter your status');
 
-    }
-    toggleEditMode = (value) => {
-        if (value === false) this.props.updateStatusText(this.state.status);
-        this.setState({
-            statusEditMode: value
-        })
-
-    }
-
-    componentDidMount() {
-
-        let userId = this.props.match.params.userId; // достаем данные о текущем пользователе
+    useEffect(() => {
+        let userId = props.match.params.userId; // достаем данные о текущем пользователе
         if (!userId) {
             userId = 8624;
         }
-        this.props.setProfile(userId, userId);
+        props.setProfile(userId, userId);
+    },[])
+
+    const toggleEditMode = (value) => {
+        setStatusEditMode(value);
+        props.updateStatusText(status);
     }
 
-    render() {
-        return <Profile {...this.props}
-                        localStatus={this.state.status}
-                        onStatusChange={this.onStatusChange}
-                        statusEditMode={this.state.statusEditMode}
-                        value={this.state.value}
-                        toggleEditMode={this.toggleEditMode}/>
-    }
+    return <Profile {...props}
+                        localStatus={status}
+                        onStatusChange={setStatus}
+                        statusEditMode={statusEditMode}
+                        toggleEditMode={toggleEditMode}
+    />
+
 }
 
 const mapStateToProps = (state) => {
@@ -59,7 +47,7 @@ const mapStateToProps = (state) => {
 
 
 export default compose(
-     withAuthRedirect, // при обновлении редиректит на /login т.к. ответ от api true приходит позже рендера
+     withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {sendWallPost, updateWallPost, setProfileData, setProfile, updateStatusText})
 )(ProfileContainer);
