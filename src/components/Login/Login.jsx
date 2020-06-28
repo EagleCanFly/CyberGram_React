@@ -17,21 +17,21 @@ const Login = (props) => {
 
         <Form onSubmit={onSubmit}
               render={({handleSubmit}) => (
-                  <form className={s.form} onSubmit={handleSubmit}>
+                  <form className={'form-group w-50 m-3'} onSubmit={handleSubmit}>
 
                       <div>
                           <label htmlFor="email">Email</label>
-                          <Field name="email" component="input" type="text"/>
+                          <Field className={'form-control'} name="email" component="input" type="text"/>
                       </div>
                       <div>
                           <label htmlFor="password">Password</label>
-                          <Field name="password" component="input" type="text"/>
+                          <Field className={'form-control'} name="password" component="input" type="text"/>
                       </div>
-                      <div>
-                          <label htmlFor="rememberMe">Remember me</label>
-                          <Field name="rememberMe" component="input" type="checkbox"/>
+                      <div className={'form-group form-check'}>
+                          <Field className={"form-check-input"}  name="rememberMe" component="input" type="checkbox"/>
+                          <label className={'form-check-label'} htmlFor="rememberMe">Remember me</label>
                       </div>
-                      <button type="submit">Submit</button>
+                      <button className={'btn btn-outline-secondary'} type="submit">Sign in</button>
                   </form>
               )}
         />

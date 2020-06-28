@@ -1,13 +1,13 @@
 import React from "react";
 import s from "./Post.module.css";
+import anonymous from "../../../../images/unknown-user.jpg"
 const Post = (props) => {
 	return (
 		<div className={s.post} key={props.id}>
 			<div className={s.avatar}>
 				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1200px-Anonymous.svg.png"
-					alt=""
-					srcset=""
+					src={anonymous}
+					alt="avatar"
 				/>
 				<div className={s.likes}>Likes {props.likes}</div>
 			</div>

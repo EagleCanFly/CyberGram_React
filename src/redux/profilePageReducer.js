@@ -7,20 +7,7 @@ const SEND_WALL_POST = "SEND-WALL-POST",
     GET_STATUS = "GET_STATUS"
 
 let initialState = {
-    msgInfo: [
-        {
-            likes: 0,
-            message: "Hey dude",
-        },
-        {
-            likes: 5,
-            message: "How's it going?",
-        },
-        {
-            likes: 1486,
-            message: "Not too bad",
-        },
-    ],
+    msgInfo: [],
     updatedText: "",
     profile: null,
     status: ''

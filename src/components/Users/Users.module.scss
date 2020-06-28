@@ -4,8 +4,9 @@
 }
 
 .avatar {
-    width: 90px !important;
-    height: 140px !important;
+    width: 80px !important;
+    height: 100px !important;
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
@@ -15,11 +16,11 @@
 }
 
 .column span {
-    padding: 4px
+    margin: 4px
 }
 
 .column div {
-    padding: 4px
+    margin: 4px
 }
 
 .item {
@@ -45,9 +46,10 @@
     color: #000;
 }
 
-.currentPage {
+.currentPage a {
     font-weight: 700;
-    font-size: 1.5rem;
+    background: #eaeaea;
+    //font-size: 1.5rem;
 }
 
 .numbers span {

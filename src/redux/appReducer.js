@@ -29,7 +29,7 @@ export const authSuccess = () => {
 
 export const init = () => {
     return (dispatch) => {
-        debugger
+
         let promise = dispatch(authorize());
 
         promise.then(() => {

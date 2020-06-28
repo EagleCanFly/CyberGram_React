@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
 import Loader from "../common/Loader";
-import anonymous from "../../images/anonymous.png"
+import anonymous from "../../images/unknown-user.jpg"
 
 const Profile = (props) => {
 
@@ -10,6 +10,7 @@ const Profile = (props) => {
     let wallPost = props.msgInfo.map((p) => {
         return <Post likes={p.likes} message={p.message}/>;
     });
+
     let textArea = React.createRef();
 
     const onClickHandler = () => {
@@ -18,7 +19,7 @@ const Profile = (props) => {
     const onChangeHandler = (event) => {
         props.updateWallPost(event.target.value);
     };
-
+    debugger
     if (!props.profile) {
         return <Loader/>
     }
@@ -26,27 +27,40 @@ const Profile = (props) => {
     return (
         <main className={s.main}>
             <div className={s.profile}>
-                <div className={s.avatar}><img src={props.profile.photos.large ? props.profile.photos.large : anonymous} alt="avatar"/></div>
-                { props.statusEditMode
+                <div className={s.avatar}><img src={props.profile.photos.large ? props.profile.photos.large : anonymous}
+                                               alt="avatar"/></div>
+                {props.statusEditMode
                     ? <input className={s.statusInput}
                              autoFocus={true}
                              type="text"
                              onBlur={() => props.toggleEditMode(false)}
                              value={props.localStatus}
                              onChange={(event) => props.onStatusChange(event.currentTarget.value)}/>
-                    : <span className={s.status}
-                           onDoubleClick={() => props.toggleEditMode(true)} >Status: {props.status || 'Enter your status'}</span>}
-                <div>Nickname: {props.profile.aboutMe}</div>
-                <div>Looking for a job: {props.profile.lookingForAJob ? "Yes" : "No"}</div>
+
+                    : <span className={s.status}><span
+                        className={s.label}>Status:</span> {props.status || 'Enter your status'}
+                        <button className={'btn btn-outline-secondary btn-sm ml-2'}
+                                onClick={() => props.toggleEditMode(true)}>Change status</button></span>}
+
+                <span><span className={s.label}>Nickname:</span> {props.profile.fullName}</span>
+                <span><span className={s.label}>Looking for a job:</span> {props.profile.lookingForAJob ? "Yes" : "No"}</span>
             </div>
-            <textarea
-                onChange={onChangeHandler}
-                placeholder="Enter your message"
-                value={props.updatedText}
-                ref={textArea}
-            >1</textarea>
+            <div className="input-group mb-3 w-50">
+
+                <input type="text"
+                       className="form-control w-25"
+                       aria-label="Username"
+                       aria-describedby="basic-addon1"
+                       onChange={onChangeHandler}
+                       placeholder="Enter your message"
+                       value={props.updatedText}
+                       ref={textArea}
+                />
+                <button className={'btn btn-outline-secondary'} onClick={onClickHandler}>Send</button>
+            </div>
+
             <br/>
-            <button onClick={onClickHandler}>Add msg</button>
+            {/*<button >Add msg</button>*/}
             <div className={s.wall_post}>{wallPost}</div>
         </main>
     );

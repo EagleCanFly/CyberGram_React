@@ -1,49 +1,95 @@
-import React from "react";
-import s from "./Users.module.css";
-import anonymous from "./../../images/anonymous.png";
+import React, {useEffect, useState} from "react";
+import s from "./Users.module.scss";
+import anonymous from "./../../images/unknown-user.jpg";
 import {NavLink} from "react-router-dom";
 import Pagination from "react-js-pagination";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {
+    follow, getUsers, getUsersOnUpdate,
+    setTotalCount,
+    setUsers,
+    setUsersPage,
+    toggleBtnDisabled,
+    toggleIsFetching,
+    unfollow
+} from "../../redux/userPageReducer";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import Loader from "../common/Loader";
 
 
 const Users = (props) => {
 
-    return (<div>
-            {
+
+
+    useEffect(() => {
+        debugger
+        props.getUsers(props.state.userPages, props.state.currentPage);
+    }, [props.state.userPages]);
+
+    const onPageChange = (pageNumber) => {
+
+        if (props.state.currentPage !== pageNumber) {
+            props.getUsersOnUpdate(props.state.userPages, pageNumber);
+        }
+    }
+
+    return (
+        <div>
+            {props.state.isFetching ? <Loader/> :
+
                 props.state.users.map(user => <div className={s.container} key={user.id}>
-                        <div className={s.column}>
+                        <div className={'d-flex flex-column mx-2'}>
                             <NavLink to={'/profile/' + user.id}>
-                                <img className={s.avatar} src={!user.photos.small === false ? user.photos.small : anonymous} alt=""/>
+                                <img className={s.avatar} src={user.photos.small ? user.photos.small : anonymous}
+                                     alt=""/>
                             </NavLink>
                             {user.followed ?
-                                <button disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
+                                <button className={'btn btn-outline-danger btn-sm'} disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
                                     props.unfollow(user.id);
                                 }}>Unfollow</button>
 
-                                : <button disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
+                                : <button className={'btn btn-outline-secondary btn-sm'} disabled={props.state.isBtnDisabled.some(id => id === user.id)} onClick={() => {
                                     props.follow(user.id);
                                 }}>Follow</button>}
                         </div>
-                        <div className={s.column}>
+                        <div className={'flex-column'}>
                             <div className={s.item}>Name:<span> {user.name}</span></div>
                             <div className={s.item}>Nickame:<span> {user.uniqueUrlName}</span></div>
                         </div>
-
                     </div>
-                )}
 
-            <Pagination
+                )}
+            {props.state.isFetching ? <div></div> : <Pagination
                 activePage={props.state.currentPage}
                 itemsCountPerPage={10}
                 totalItemsCount={props.state.totalCount}
                 pageRangeDisplayed={8}
-                onChange={props.onPageChange}
-                linkClass={s.page}
+                onChange={onPageChange}
+                linkClass={'page-link'}
                 activeClass={s.currentPage}
-                innerClass={s.pages_row}/>
+                innerClass={'pagination'}/>}
+
         </div>
     )
-
 }
+const mapStateToProps = (state) => {
+    return {
+        state: state.usersPage
+    };
+};
 
-
-export default Users;
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        setUsers,
+        setUsersPage,
+        setTotalCount,
+        toggleIsFetching,
+        toggleBtnDisabled,
+        getUsers,
+        getUsersOnUpdate
+    }),
+     withAuthRedirect
+)(Users);

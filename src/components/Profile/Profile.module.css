@@ -25,15 +25,12 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 5px;
+    width: 50%;
 }
-.profile div {
-    padding: 5px;
+.profile span {
+    padding: 5px 5px 5px 0;
 }
-.statusInput {
-}
-.status {
-    padding: 5px;
-}
-.status:hover {
-    background: goldenrod;
+.label {
+    color: #003366;
+    font-weight: 700;
 }

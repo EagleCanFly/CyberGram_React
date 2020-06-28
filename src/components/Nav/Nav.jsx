@@ -1,41 +1,26 @@
 import React from "react";
-import s from "./Nav.module.css";
+import "./Nav.scss";
 import {NavLink} from "react-router-dom";
 
 const Nav = (props) => {
 
     return (
-        <nav className={s.nav} key={props.id}>
-            <ul className={s.menu}>
-                <li>
-                    <NavLink to="/profile" activeClassName={s.active}>
+        <nav  className='col-2' key={props.id}>
+            <ul className={'nav flex-column'}>
+                <li className={'nav-item'}>
+                    <NavLink to="/profile" className={'nav-link vk'}  activeClassName={'active'}>
                         Profile
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/users" activeClassName={s.active}>
+                <li className={'nav-item'}>
+                    <NavLink to="/users" className={'nav-link vk'} activeClassName={'active'}>
                         Users
                     </NavLink>
                 </li>
 
-                <li>
-                    <NavLink to="/messages" activeClassName={s.active}>
+                <li className={'nav-item'}>
+                    <NavLink to="/messages" className={'nav-link vk'} activeClassName={'active'}>
                         Messages
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/news" activeClassName={s.active}>
-                        News
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/music" activeClassName={s.active}>
-                        Music
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/settings" activeClassName={s.active}>
-                        Settings
                     </NavLink>
                 </li>
             </ul>

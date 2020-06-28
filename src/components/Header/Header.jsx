@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./Header.module.css"
+import  "./Header.scss"
 import {NavLink} from "react-router-dom";
 import logo from "./../../images/logo.png"
 import {connect} from "react-redux";
@@ -8,12 +8,14 @@ import {logout} from "../../redux/authReducer";
 const Header = (props) => {
 
     return (
-        <header className={s.header}>
+        <header className={'header'}>
             <img
                 src={logo}
                 alt="avatar"/>
-            <div className={s.login}>
-                {props.isAuth ? <span onDoubleClick={() => props.logout()}>{props.login}</span> : <NavLink to="/login">Login</NavLink>}
+            <div className={'login'}>
+                {props.isAuth ?
+                    <span>{props.login} <button className={'btn btn-outline-light btn-sm ml-1'} onClick={() => props.logout()}>Sign out</button></span> :
+                    <NavLink to="/login"><button className={'btn btn-outline-light btn-sm'}>Sign in</button></NavLink>}
 
             </div>
         </header>
