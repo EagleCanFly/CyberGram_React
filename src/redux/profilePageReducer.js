@@ -3,8 +3,7 @@ import {profileAPI} from "../DAL/api";
 const SEND_WALL_POST = "SEND-WALL-POST",
     UPDATE_PROFILE_TEXT = "UPDATE-PROFILE-TEXT",
     SET_PROFILE_DATA = "SET_PROFILE_DATA",
-    SET_STATUS = "SET_STATUS",
-    GET_STATUS = "GET_STATUS"
+    SET_STATUS = "SET_STATUS";
 
 let initialState = {
     msgInfo: [],
@@ -71,27 +70,20 @@ export const setStatus = (status) => {
         status
     }
 }
-export const getStatus = (status) => {
-    return {
-        type: GET_STATUS,
-        status
-    }
-}
 
-export const setProfile = (profileNumber, userId) => {
-    return (dispatch) => {
-        profileAPI.setProfile(profileNumber).then(response => {
-            dispatch(setProfileData(response));
-        })
-        profileAPI.getStatus(userId).then(response => {
-            dispatch(setStatus(response))
-        })
+export const setProfile = (userId) => {
+    return async (dispatch) => {
+        const profileData = await profileAPI.setProfile(userId)
+        dispatch(setProfileData(profileData));
+
+        const status = await profileAPI.getStatus(userId);
+        dispatch(setStatus(status))
     }
 }
 export const updateStatusText = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-           dispatch(setStatus(status))
-        })
+    return async (dispatch) => {
+        await profileAPI.updateStatus(status);
+        dispatch(setStatus(status));
+
     }
 }

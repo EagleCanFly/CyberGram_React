@@ -93,13 +93,13 @@ export const unfollowAC = (userID) => {
 export const setUsers = (users) => {
     return {
         type: SET_USERS,
-        users: users
+        users
     }
 };
 export const setUsersPage = (page) => {
     return {
         type: SET_USERS_PAGE,
-        page: page  // если свойство и параметр имеют одинаковое имя, то можно указать только параметр
+        page
     }
 };
 export const setTotalCount = (total) => {
@@ -122,51 +122,43 @@ export const toggleBtnDisabled = (userId, isFetching) => {
     }
 }
 export const getUsers = (userPages, currentPage) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
-
-        userAPI.getUsers(userPages, currentPage).then(data => {
-            dispatch(toggleIsFetching(false));
-            dispatch(setTotalCount(data.totalCount));
-            dispatch(setUsers(data.items));
-
-        })
+        const data = await userAPI.getUsers(userPages, currentPage)
+        dispatch(toggleIsFetching(false));
+        dispatch(setTotalCount(data.totalCount));
+        dispatch(setUsers(data.items));
     }
 }
 export const getUsersOnUpdate = (userPages, pageNumber) => {
-    return (dispatch) => {
-
+    return async (dispatch) => {
         dispatch(toggleIsFetching(true));
-
-        userAPI.getUsers(userPages, pageNumber).then(data => {
+        const data = await userAPI.getUsers(userPages, pageNumber);
+        if (data.resultCode === 0) {
             dispatch(toggleIsFetching(false));
             dispatch(setUsersPage(pageNumber));
             dispatch(setUsers(data.items));
-        })
+        }
     }
 }
 export const follow = (UserId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleBtnDisabled(UserId, true));
-        userAPI.follow(UserId).then(response => {
-            if (response.resultCode === 0) {
-
-            }
+        const response = await userAPI.follow(UserId)
+        if (response.resultCode === 0) {
             dispatch(followAC(UserId));
             dispatch(toggleBtnDisabled(UserId, false));
-        });
+        }
     }
 }
 export const unfollow = (UserId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleBtnDisabled(UserId, true));
-        userAPI.unfollow(UserId).then(response => {
-            if (response.resultCode === 0) {
-
-            }
+        const response = await userAPI.unfollow(UserId)
+        if (response.resultCode === 0) {
             dispatch(unfollowAC(UserId));
             dispatch(toggleBtnDisabled(UserId, false));
-        });
+        }
     }
 }
 

@@ -23,7 +23,7 @@ const Users = (props) => {
 
 
     useEffect(() => {
-        debugger
+
         props.getUsers(props.state.userPages, props.state.currentPage);
     }, [props.state.userPages]);
 

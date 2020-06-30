@@ -8,18 +8,18 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
-const ProfileContainer = (props) => {
+const ProfileContainer = ({setProfile, userId, ...props}) => {
 
     const [statusEditMode, setStatusEditMode] = useState(false);
     const [status, setStatus] = useState('Enter your status');
-
-    useEffect(() => {
-        let userId = props.match.params.userId; // достаем данные о текущем пользователе
-        if (!userId) {
-            userId = 8624;
-        }
-        props.setProfile(userId, userId);
-    },[])
+    if (props.match.params.userId) {
+        userId = props.match.params.userId;
+    }
+    useEffect(
+        () => {
+            setProfile(userId);
+        }, [setProfile, userId]
+    );
 
     const toggleEditMode = (value) => {
         setStatusEditMode(value);
@@ -27,12 +27,12 @@ const ProfileContainer = (props) => {
     }
 
     return <Profile {...props}
-                        localStatus={status}
-                        onStatusChange={setStatus}
-                        statusEditMode={statusEditMode}
-                        toggleEditMode={toggleEditMode}
+                    localStatus={status}
+                    onStatusChange={setStatus}
+                    statusEditMode={statusEditMode}
+                    toggleEditMode={toggleEditMode}
+                    userId={props.userId}
     />
-
 }
 
 const mapStateToProps = (state) => {
@@ -40,14 +40,13 @@ const mapStateToProps = (state) => {
         msgInfo: state.profilePage.msgInfo,
         updatedText: state.profilePage.updatedText,
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        userId: state.auth.data.id
     };
 
 };
-
-
 export default compose(
-     withAuthRedirect,
+    withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {sendWallPost, updateWallPost, setProfileData, setProfile, updateStatusText})
 )(ProfileContainer);

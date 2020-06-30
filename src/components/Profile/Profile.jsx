@@ -19,7 +19,7 @@ const Profile = (props) => {
     const onChangeHandler = (event) => {
         props.updateWallPost(event.target.value);
     };
-    debugger
+
     if (!props.profile) {
         return <Loader/>
     }
@@ -39,7 +39,7 @@ const Profile = (props) => {
 
                     : <span className={s.status}><span
                         className={s.label}>Status:</span> {props.status || 'Enter your status'}
-                        <button className={'btn btn-outline-secondary btn-sm ml-2'}
+                        <button disabled={props.profile.userId != props.userId} className={'btn btn-outline-secondary btn-sm ml-2'}
                                 onClick={() => props.toggleEditMode(true)}>Change status</button></span>}
 
                 <span><span className={s.label}>Nickname:</span> {props.profile.fullName}</span>

@@ -9,7 +9,6 @@ const initialState = {
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_SUCCESS: {
-
             return {
                 ...state,
                 isInitialized: true
@@ -18,7 +17,6 @@ const appReducer = (state = initialState, action) => {
         default: {
             return state;
         }
-
     }
 }
 export const authSuccess = () => {
@@ -28,14 +26,9 @@ export const authSuccess = () => {
 }
 
 export const init = () => {
-    return (dispatch) => {
-
-        let promise = dispatch(authorize());
-
-        promise.then(() => {
-                dispatch(authSuccess())
-            }
-        )
+    return async (dispatch) => {
+        await dispatch(authorize());
+        dispatch(authSuccess());
     }
 }
 export default appReducer;
