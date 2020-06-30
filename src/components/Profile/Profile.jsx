@@ -14,6 +14,7 @@ const Profile = (props) => {
     let textArea = React.createRef();
 
     const onClickHandler = () => {
+        if (textArea.current.value === '') return;
         props.sendWallPost(textArea.current.value);
     };
     const onChangeHandler = (event) => {
@@ -39,7 +40,7 @@ const Profile = (props) => {
 
                     : <span className={s.status}><span
                         className={s.label}>Status:</span> {props.status || 'Enter your status'}
-                        <button disabled={props.profile.userId != props.userId} className={'btn btn-outline-secondary btn-sm ml-2'}
+                        <button disabled={props.profile.userId !== props.userId} className={'btn btn-outline-secondary btn-sm ml-2'}
                                 onClick={() => props.toggleEditMode(true)}>Change status</button></span>}
 
                 <span><span className={s.label}>Nickname:</span> {props.profile.fullName}</span>
@@ -60,7 +61,6 @@ const Profile = (props) => {
             </div>
 
             <br/>
-            {/*<button >Add msg</button>*/}
             <div className={s.wall_post}>{wallPost}</div>
         </main>
     );

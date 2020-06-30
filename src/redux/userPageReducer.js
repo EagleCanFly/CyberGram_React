@@ -124,7 +124,7 @@ export const toggleBtnDisabled = (userId, isFetching) => {
 export const getUsers = (userPages, currentPage) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true));
-        const data = await userAPI.getUsers(userPages, currentPage)
+        const data = await userAPI.getUsers(userPages, currentPage);
         dispatch(toggleIsFetching(false));
         dispatch(setTotalCount(data.totalCount));
         dispatch(setUsers(data.items));
@@ -134,11 +134,9 @@ export const getUsersOnUpdate = (userPages, pageNumber) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true));
         const data = await userAPI.getUsers(userPages, pageNumber);
-        if (data.resultCode === 0) {
             dispatch(toggleIsFetching(false));
             dispatch(setUsersPage(pageNumber));
             dispatch(setUsers(data.items));
-        }
     }
 }
 export const follow = (UserId) => {

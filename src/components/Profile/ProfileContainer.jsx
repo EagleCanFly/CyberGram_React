@@ -11,7 +11,7 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 const ProfileContainer = ({setProfile, userId, ...props}) => {
 
     const [statusEditMode, setStatusEditMode] = useState(false);
-    const [status, setStatus] = useState('Enter your status');
+    const [status, setStatus] = useState(props.status);
     if (props.match.params.userId) {
         userId = props.match.params.userId;
     }
@@ -31,7 +31,7 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     onStatusChange={setStatus}
                     statusEditMode={statusEditMode}
                     toggleEditMode={toggleEditMode}
-                    userId={props.userId}
+                    userId={userId}
     />
 }
 

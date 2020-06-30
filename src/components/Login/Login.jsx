@@ -12,15 +12,18 @@ const Login = (props) => {
     }
 
     if (props.isAuth === true) return <Redirect to='/profile'/>
+    const required = value => (value ? undefined : 'Required')
+
     return  (
 
         <Form onSubmit={onSubmit}
+              validate={required}
               render={({handleSubmit}) => (
                   <form className={'form-group w-50 m-3'} onSubmit={handleSubmit}>
 
                       <div>
                           <label htmlFor="email">Email</label>
-                          <Field className={'form-control'} name="email" component="input" type="text"/>
+                          <Field  name="email" component="input" type="text"/>
                       </div>
                       <div>
                           <label htmlFor="password">Password</label>
