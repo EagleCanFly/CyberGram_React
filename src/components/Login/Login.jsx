@@ -4,39 +4,53 @@ import {Redirect} from "react-router-dom";
 
 const Login = (props) => {
 
-    const onSubmit = parameters => {
-        props.login(parameters.email, parameters.password);
-        if (props.isAuth === true) {
-            return  <Redirect to='/profile'/>
-        }
-    }
-
     if (props.isAuth === true) return <Redirect to='/profile'/>
-    const required = value => (value ? undefined : 'Required')
 
-    return  (
+    const required = value => (value ? undefined : 'This field is required')
 
-        <Form onSubmit={onSubmit}
-              validate={required}
-              render={({handleSubmit}) => (
-                  <form className={'form-group w-50 m-3'} onSubmit={handleSubmit}>
+    return (<Form onSubmit={props.onSubmit}
+          render={({handleSubmit,submitError}) => (
 
-                      <div>
-                          <label htmlFor="email">Email</label>
-                          <Field  name="email" component="input" type="text"/>
-                      </div>
-                      <div>
-                          <label htmlFor="password">Password</label>
-                          <Field className={'form-control'} name="password" component="input" type="text"/>
-                      </div>
-                      <div className={'form-group form-check'}>
-                          <Field className={"form-check-input"}  name="rememberMe" component="input" type="checkbox"/>
-                          <label className={'form-check-label'} htmlFor="rememberMe">Remember me</label>
-                      </div>
-                      <button className={'btn btn-outline-secondary'} type="submit">Sign in</button>
-                  </form>
-              )}
+                      <form
+                             className={'form-group w-50 m-3'}
+                             onSubmit={handleSubmit}>
+
+                          <div>
+                              <Field validate={required}
+                                     name="email">
+                                  {({ input, meta }) => (
+                                  <div className={meta.touched ? 'was-validate' : ''}>
+                                      <label htmlFor="email">Email</label>
+                                      <input  name={'email'} className={'form-control'} {...input} type="text" placeholder={meta.touched && (meta.error || meta.submitError)} />
+                                  </div>
+                              )}</Field>
+                          </div>
+                          <div>
+                              <Field validate={required}
+                                     name="password">
+                                  {({ input, meta }) => (
+                                      <div className={meta.touched ? 'was-validate' : ''}>
+                                          <label htmlFor='password'>Password</label>
+                                          <input  name={'password'}  className={'form-control'} {...input} type="text" placeholder={meta.touched && meta.error} />
+                                         {/*<pre> {JSON.stringify(meta, undefined, 2)}</pre>*/}
+                                      </div>
+                                  )}
+                              </Field>
+                          </div>
+
+                          <button className={'btn btn-outline-secondary mt-4'} type="submit">Sign in</button>
+                          {submitError && <div className="alert alert-danger mt-4">{submitError}</div>}
+
+                          <div style={{marginTop: 30 + 'px'}}>
+                              <span>Email: free@samuraijs.com</span>
+                              <br/>
+                              <span>Password: free</span>
+                          </div>
+                      </form>
+
+                  )}
         />
+
     );
 }
 
