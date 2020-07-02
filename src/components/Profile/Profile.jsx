@@ -4,10 +4,11 @@ import Post from "./Posts/Post/Post";
 import anonymous from "../../images/unknown-user.jpg"
 
 const Profile = (props) => {
-
-    let wallPost = props.msgInfo.map((p) => {
-        return <Post likes={p.likes}
-                     message={p.message}
+    let wallPost = props.msgInfo.map((post,id) => {
+        return <Post likes={post.likes}
+                     message={post.message}
+                     id={id}
+                     deleteMessage={props.deleteMessage}
                     avatar={props.profile.photos.large}/>;
     });
 
@@ -42,7 +43,7 @@ const Profile = (props) => {
                        placeholder="Enter your message"
                        value={props.message}
                 />
-                <button className={'btn btn-outline-secondary'} onClick={props.onClickHandler}>Send</button>
+                <button className={'btn btn-outline-secondary'} onClick={props.sendMessage}>Send</button>
             </div>
             <br/>
             <div className={s.wall_post}>{wallPost}</div>

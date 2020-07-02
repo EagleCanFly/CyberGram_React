@@ -1,5 +1,6 @@
 import {
-    sendWallPost, setProfile, setProfileData, updateStatusText
+    deleteWallPost,
+    sendWallPost, setProfile, updateStatusText
 } from "../../redux/profilePageReducer";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -11,9 +12,9 @@ import Loader from "../Loader/Loader";
 
 const ProfileContainer = ({setProfile, userId, ...props}) => {
 
-    const [statusEditMode, setStatusEditMode] = useState(false);
-    const [status, setStatus] = useState(props.status);
-    const [message, setMessage] = useState('');
+    let [statusEditMode, setStatusEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
+    let [message, setMessage] = useState('');
 
     useEffect(
         () => {
@@ -28,9 +29,10 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
     const onChangeHandler = (event) => {
         setMessage(event.target.value);
     };
-    const onClickHandler = () => {
+    const sendMessage = () => {
         if (message === '') return;
         props.sendWallPost(message);
+        setMessage('');
     };
 
     if (props.match.params.userId) {
@@ -46,7 +48,8 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     toggleEditMode={toggleEditMode}
                     userId={userId}
                     onChangeHandler={onChangeHandler}
-                    onClickHandler={onClickHandler}
+                    sendMessage={sendMessage}
+                    deleteMessage={props.deleteWallPost}
                     message={message}
 
     />
@@ -65,5 +68,5 @@ const mapStateToProps = (state) => {
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {sendWallPost, setProfile, updateStatusText})
+    connect(mapStateToProps, {sendWallPost, deleteWallPost, setProfile, updateStatusText})
 )(ProfileContainer);

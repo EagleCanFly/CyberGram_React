@@ -1,6 +1,7 @@
 import {profileAPI} from "../DAL/api";
 
 const SEND_WALL_POST = "SEND-WALL-POST",
+    DELETE_WALL_POST = 'DELETE_WALL_POST',
     SET_PROFILE_DATA = "SET_PROFILE_DATA",
     SET_STATUS = "SET_STATUS";
 
@@ -11,6 +12,7 @@ let initialState = {
 };
 
 const profilePageReducer = (state = initialState, action) => {
+
     switch (action.type) {
         case SEND_WALL_POST: {
             return {
@@ -24,6 +26,15 @@ const profilePageReducer = (state = initialState, action) => {
                 ]
             };
         }
+        case DELETE_WALL_POST: {
+            return {
+                ...state,
+                msgInfo: [
+                    ...state.msgInfo.filter((msg, id) => action.id !== id)
+                ]
+            };
+        }
+
         case SET_PROFILE_DATA:
             return {
                 ...state,
@@ -45,6 +56,12 @@ export const sendWallPost = (text) => {
     return {
         type: SEND_WALL_POST,
         message: text,
+    };
+};
+export const deleteWallPost = (id) => {
+    return {
+        type: DELETE_WALL_POST,
+        id
     };
 };
 export const setProfileData = (data) => {

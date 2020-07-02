@@ -10,6 +10,7 @@ const Post = (props) => {
 					alt="avatar"
 				/>
 				<div className={s.likes}>Likes {props.likes}</div>
+				<span className={s.cross} onClick={() => props.deleteMessage(props.id)}>X</span>
 			</div>
 			<p className={s.message}>{props.message}</p>
 		</div>
