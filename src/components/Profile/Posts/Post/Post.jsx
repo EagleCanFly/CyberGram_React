@@ -6,7 +6,7 @@ const Post = (props) => {
 		<div className={s.post} key={props.id}>
 			<div className={s.avatar}>
 				<img
-					src={anonymous}
+					src={props.avatar ? props.avatar : anonymous}
 					alt="avatar"
 				/>
 				<div className={s.likes}>Likes {props.likes}</div>

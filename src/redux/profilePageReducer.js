@@ -1,13 +1,11 @@
 import {profileAPI} from "../DAL/api";
 
 const SEND_WALL_POST = "SEND-WALL-POST",
-    UPDATE_PROFILE_TEXT = "UPDATE-PROFILE-TEXT",
     SET_PROFILE_DATA = "SET_PROFILE_DATA",
     SET_STATUS = "SET_STATUS";
 
 let initialState = {
     msgInfo: [],
-    updatedText: "",
     profile: null,
     status: ''
 };
@@ -19,16 +17,13 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 msgInfo: [
                     ...state.msgInfo,
-                    {likes: Math.floor(Math.random() * 10), message: action.message},
-                ],
-                updatedText: "",
+                    {
+                        likes: Math.floor(Math.random() * 10),
+                        message: action.message
+                    },
+                ]
             };
         }
-        case UPDATE_PROFILE_TEXT:
-            return {
-                ...state,
-                updatedText: action.message,
-            };
         case SET_PROFILE_DATA:
             return {
                 ...state,
@@ -49,12 +44,6 @@ export default profilePageReducer;
 export const sendWallPost = (text) => {
     return {
         type: SEND_WALL_POST,
-        message: text,
-    };
-};
-export const updateWallPost = (text) => {
-    return {
-        type: UPDATE_PROFILE_TEXT,
         message: text,
     };
 };

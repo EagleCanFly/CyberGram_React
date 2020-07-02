@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {logout} from "../../redux/authReducer";
 
 const Header = (props) => {
-
     return (
         <header className={'header'}>
             <img
@@ -16,7 +15,6 @@ const Header = (props) => {
                 {props.isAuth ?
                     <span>{props.login} <button className={'btn btn-outline-light btn-sm ml-1'} onClick={() => props.logout()}>Sign out</button></span> :
                     <NavLink to="/login"><button className={'btn btn-outline-light btn-sm'}>Sign in</button></NavLink>}
-
             </div>
         </header>
     );

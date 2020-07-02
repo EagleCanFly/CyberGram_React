@@ -1,29 +1,15 @@
 import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
-import Loader from "../common/Loader";
 import anonymous from "../../images/unknown-user.jpg"
 
 const Profile = (props) => {
 
-
     let wallPost = props.msgInfo.map((p) => {
-        return <Post likes={p.likes} message={p.message}/>;
+        return <Post likes={p.likes}
+                     message={p.message}
+                    avatar={props.profile.photos.large}/>;
     });
-
-    let textArea = React.createRef();
-
-    const onClickHandler = () => {
-        if (textArea.current.value === '') return;
-        props.sendWallPost(textArea.current.value);
-    };
-    const onChangeHandler = (event) => {
-        props.updateWallPost(event.target.value);
-    };
-
-    if (!props.profile) {
-        return <Loader/>
-    }
 
     return (
         <main className={s.main}>
@@ -52,14 +38,12 @@ const Profile = (props) => {
                        className="form-control w-25"
                        aria-label="Username"
                        aria-describedby="basic-addon1"
-                       onChange={onChangeHandler}
+                       onChange={(event) => props.onChangeHandler(event)}
                        placeholder="Enter your message"
-                       value={props.updatedText}
-                       ref={textArea}
+                       value={props.message}
                 />
-                <button className={'btn btn-outline-secondary'} onClick={onClickHandler}>Send</button>
+                <button className={'btn btn-outline-secondary'} onClick={props.onClickHandler}>Send</button>
             </div>
-
             <br/>
             <div className={s.wall_post}>{wallPost}</div>
         </main>

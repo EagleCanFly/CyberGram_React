@@ -18,12 +18,13 @@ const LoginContainer = (props) => {
             return {[FORM_ERROR]: 'Login Failed'};
         }
     }
-    {
-        return <Login login={props.login}
-                      isAuth={props.isAuth}
-                      isError={props.isError}
-                      onSubmit={onSubmit}/>
-    }
+    if (props.isAuth === true) return <Redirect to='/profile'/>
+
+    return <Login login={props.login}
+                  isAuth={props.isAuth}
+                  isError={props.isError}
+                  onSubmit={onSubmit}/>
+
 }
 const mapStateToProps = (state) => {
     return {

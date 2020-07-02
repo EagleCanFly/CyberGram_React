@@ -1,5 +1,5 @@
 import {
-    sendWallPost, setProfile, setProfileData, updateStatusText, updateWallPost
+    sendWallPost, setProfile, setProfileData, updateStatusText
 } from "../../redux/profilePageReducer";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -7,14 +7,14 @@ import Profile from "./Profile";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import Loader from "../Loader/Loader";
 
 const ProfileContainer = ({setProfile, userId, ...props}) => {
 
     const [statusEditMode, setStatusEditMode] = useState(false);
     const [status, setStatus] = useState(props.status);
-    if (props.match.params.userId) {
-        userId = props.match.params.userId;
-    }
+    const [message, setMessage] = useState('');
+
     useEffect(
         () => {
             setProfile(userId);
@@ -25,6 +25,19 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
         setStatusEditMode(value);
         props.updateStatusText(status);
     }
+    const onChangeHandler = (event) => {
+        setMessage(event.target.value);
+    };
+    const onClickHandler = () => {
+        if (message === '') return;
+        props.sendWallPost(message);
+    };
+
+    if (props.match.params.userId) {
+        userId = props.match.params.userId;
+    }
+
+    if (!props.profile) return <Loader/>;
 
     return <Profile {...props}
                     localStatus={status}
@@ -32,6 +45,10 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     statusEditMode={statusEditMode}
                     toggleEditMode={toggleEditMode}
                     userId={userId}
+                    onChangeHandler={onChangeHandler}
+                    onClickHandler={onClickHandler}
+                    message={message}
+
     />
 }
 
@@ -48,5 +65,5 @@ const mapStateToProps = (state) => {
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {sendWallPost, updateWallPost, setProfileData, setProfile, updateStatusText})
+    connect(mapStateToProps, {sendWallPost, setProfile, updateStatusText})
 )(ProfileContainer);

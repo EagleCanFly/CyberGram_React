@@ -1,17 +1,19 @@
 .header {
-	grid-area: header;
-	background: #4c75a3	;
+  grid-area: header;
+  background: #4c75a3;
+
+  img {
+    height: 55px;
+    width: 55px;
+    padding-left: 20px;
   }
-  .header img {
-	height: 55px;
-	width: 55px;
-	padding-left: 20px;
+  div {
+    color: white;
   }
-  .login {
-	  float: right;
-      padding: 15px;
-  }
-  header div {
-	  color: white;
-  }
+}
+.login {
+  float: right;
+  padding: 15px;
+}
+
   

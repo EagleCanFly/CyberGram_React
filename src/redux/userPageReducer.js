@@ -143,7 +143,7 @@ export const follow = (UserId) => {
     return async (dispatch) => {
         dispatch(toggleBtnDisabled(UserId, true));
         const response = await userAPI.follow(UserId)
-        if (response.resultCode === 0) {
+        if (response.data.resultCode === 0) {
             dispatch(followAC(UserId));
             dispatch(toggleBtnDisabled(UserId, false));
         }
@@ -153,7 +153,7 @@ export const unfollow = (UserId) => {
     return async (dispatch) => {
         dispatch(toggleBtnDisabled(UserId, true));
         const response = await userAPI.unfollow(UserId)
-        if (response.resultCode === 0) {
+        if (response.data.resultCode === 0) {
             dispatch(unfollowAC(UserId));
             dispatch(toggleBtnDisabled(UserId, false));
         }

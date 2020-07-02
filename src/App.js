@@ -1,50 +1,48 @@
-import React from "react";
+import React, {Suspense, useEffect} from "react";
 import s from "./App.module.scss";
 import Nav from "./components/Nav/Nav";
 import {Redirect, Route, withRouter} from "react-router-dom";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import LoginContainer from "./components/Login/LoginContainer";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import Loader from "./components/common/Loader";
 import {init} from "./redux/appReducer";
-import Messages from "./components/Messages/Messages";
 import Header from "./components/Header/Header";
-import Users from "./components/Users/Users";
+import Loader from "./components/Loader/Loader";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.init();
-    }
-    render() {
+const LoginContainer = React.lazy(() => import('./components/Login/LoginContainer'))
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
+const Messages = React.lazy(() => import('./components/Messages/Messages'));
 
-        // if (!this.props.isInitialized) return <Loader/>;
-        if (this.props.isInitialized === false) return <Redirect to={'/login'}/>
+const App = (props) => {
 
-        return (
-                <div className={s.app}>
-                    <Header/>
-                    <div className={'container'}>
-                        <div className={'row'}>
-                            <Nav/>
-                            <div className="content-wrapper col-9">
-                                <Route path="/login" render={() => <LoginContainer/>}/>
-                                <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                                <Route path="/messages" render={() => <Messages/>}/>
-                                <Route path="/news" component={News}/>
-                                <Route path="/music" component={Music}/>
-                                <Route path="/settings" component={Settings}/>
-                                <Route path="/users" render={() => <Users/>}/>
-                            </div>
+    useEffect(() => {
+        props.init();
+
+    }, [props.isInitialized])
+
+    if (props.isInitialized === false) return <Redirect to={'/login'}/>
+
+    return (
+        <div className={s.app}>
+            <Header/>
+            <div className={'container'}>
+                <div className={'row'}>
+                    <Suspense fallback={<div className={'col-6 m-auto'}><Loader/></div>}>
+                        <Nav/>
+                        <div className="content-wrapper col-9">
+                            <Route path="/login" render={() => <LoginContainer/>}/>
+                            <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                            <Route path="/messages" render={() => <Messages/>}/>
+                            <Route path="/users" render={() => <UsersContainer/>}/>
                         </div>
-                    </div>
+                    </Suspense>
                 </div>
-        );
-    }
+            </div>
+        </div>
+    );
+
 }
+
 const mapStateToProps = (state) => {
     return {
         isInitialized: state.app.isInitialized
@@ -53,5 +51,5 @@ const mapStateToProps = (state) => {
 
 export default compose(
     withRouter,
-    connect(mapStateToProps,{init})
-    )(App);
+    connect(mapStateToProps, {init})
+)(App);
