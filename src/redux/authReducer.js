@@ -18,7 +18,6 @@ let initialData = {
 
 
 const authReducer = (state = initialData, action) => {
-    console.log(state.isAuth)
     switch (action.type) {
 
         case TOGGLE_IS_AUTH: {

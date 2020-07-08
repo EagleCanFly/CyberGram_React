@@ -19,8 +19,15 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
     useEffect(
         () => {
             setProfile(userId);
-        }, [setProfile, userId]
+        }, [setProfile, userId, props.match.params.userId]
     );
+
+    const onSubmit = (parameters) => {
+
+        if (parameters.message === '') return;
+        props.sendWallPost(parameters.message);
+        setMessage('');
+    }
 
     const toggleEditMode = (value) => {
         setStatusEditMode(value);
@@ -28,11 +35,6 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
     }
     const onChangeHandler = (event) => {
         setMessage(event.target.value);
-    };
-    const sendMessage = () => {
-        if (message === '') return;
-        props.sendWallPost(message);
-        setMessage('');
     };
 
     if (props.match.params.userId) {
@@ -48,7 +50,7 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     toggleEditMode={toggleEditMode}
                     userId={userId}
                     onChangeHandler={onChangeHandler}
-                    sendMessage={sendMessage}
+                    onSubmit={onSubmit}
                     deleteMessage={props.deleteWallPost}
                     message={message}
 

@@ -15,7 +15,7 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 const UsersContainer = (props) => {
     useEffect(() => {
         props.getUsers(props.state.userPages, props.state.currentPage);
-    }, [props.state.userPages]);
+    }, []);
 
     const onPageChange = (pageNumber) => {
         if (props.state.currentPage !== pageNumber) {

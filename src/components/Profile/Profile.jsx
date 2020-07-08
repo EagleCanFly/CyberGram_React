@@ -2,14 +2,15 @@ import React from "react";
 import s from "./Profile.module.css";
 import Post from "./Posts/Post/Post";
 import anonymous from "../../images/unknown-user.jpg"
+import {Field, Form} from "react-final-form";
 
 const Profile = (props) => {
-    let wallPost = props.msgInfo.map((post,id) => {
+    let wallPost = props.msgInfo.map((post, id) => {
         return <Post likes={post.likes}
                      message={post.message}
                      id={id}
                      deleteMessage={props.deleteMessage}
-                    avatar={props.profile.photos.large}/>;
+                     avatar={props.profile.photos.large}/>;
     });
 
     return (
@@ -27,24 +28,49 @@ const Profile = (props) => {
 
                     : <span className={s.status}><span
                         className={s.label}>Status:</span> {props.status || 'Enter your status'}
-                        <button disabled={props.profile.userId !== props.userId} className={'btn btn-outline-secondary btn-sm ml-2'}
-                                onClick={() => props.toggleEditMode(true)}>Change status</button></span>}
+
+                        {props.profile.userId === props.userId &&
+                        <button className={'btn btn-outline-secondary btn-sm ml-2'}
+                                onClick={() => props.toggleEditMode(true)}>Change status</button>}
+                </span>
+                }
 
                 <span><span className={s.label}>Nickname:</span> {props.profile.fullName}</span>
+                {props.profile.aboutMe &&
+                <span><span className={s.label}>About me:</span> {props.profile.aboutMe}</span>}
                 <span><span className={s.label}>Looking for a job:</span> {props.profile.lookingForAJob ? "Yes" : "No"}</span>
+                <span><span className={s.label}>Contacts</span> {Object.keys(props.profile.contacts).map(key => (
+                    <div className={'pl-3 pt-2'}><b>{key}:</b> {props.profile.contacts[key]}</div>))}</span>
             </div>
-            <div className="input-group mb-3 w-50">
 
-                <input type="text"
-                       className="form-control w-25"
-                       aria-label="Username"
-                       aria-describedby="basic-addon1"
-                       onChange={(event) => props.onChangeHandler(event)}
-                       placeholder="Enter your message"
-                       value={props.message}
-                />
-                <button className={'btn btn-outline-secondary'} onClick={props.sendMessage}>Send</button>
-            </div>
+            <Form onSubmit={props.onSubmit}
+                  render={({handleSubmit, form}) => (
+                      <form className={'form-inline w-50 m-3'}
+                            onSubmit={(event) => {
+                                handleSubmit(event);
+                                form.reset();
+                            }}>
+                          <div>
+                              <Field name="message">
+                                  {({input}) => (
+                                      <div className={'form-group'}>
+                                          <label htmlFor='message' className="sr-only">Message</label>
+                                          <input type="text"
+                                                 name={'message'}
+                                                 className="form-control"
+                                                 placeholder="Enter your message"
+                                                 {...input}/>
+                                          <button className={'btn btn-outline-secondary'}>Send</button>
+                                      </div>
+
+                                  )}
+                              </Field>
+                          </div>
+                      </form>
+                  )}>
+            </Form>
+
+
             <br/>
             <div className={s.wall_post}>{wallPost}</div>
         </main>
