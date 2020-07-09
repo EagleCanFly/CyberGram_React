@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5208c84d6a20318d7814816a159c632e",
+    "revision": "f2d7bd2dd185f33f649e9f0642d4377e",
     "url": "/CyberGram_React/index.html"
   },
   {
@@ -36,15 +36,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/CyberGram_React/static/js/4.2e9a6874.chunk.js"
   },
   {
-    "revision": "be42c9c323ee073871ff",
-    "url": "/CyberGram_React/static/js/5.cb65006b.chunk.js"
+    "revision": "953fe23da51fba6d48b1",
+    "url": "/CyberGram_React/static/js/5.dfa1e008.chunk.js"
   },
   {
     "revision": "e0e5fcaf9ee170172fe2",
     "url": "/CyberGram_React/static/js/main.368d4455.chunk.js"
   },
   {
-    "revision": "f389c057d5eb4ae1b798",
-    "url": "/CyberGram_React/static/js/runtime-main.b95a1096.js"
+    "revision": "f2c67b80c0e351b7b4ca",
+    "url": "/CyberGram_React/static/js/runtime-main.a8c7f837.js"
   }
 ]);
