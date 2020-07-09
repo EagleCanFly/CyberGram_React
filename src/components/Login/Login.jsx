@@ -35,9 +35,8 @@ const Login = (props) => {
                                           <input name={'password'}
                                                  className={'form-control'}
                                                  {...input}
-                                                 type="text"
+                                                 type="password"
                                                  placeholder={meta.touched && meta.error}/>
-                                          {/*<pre> {JSON.stringify(meta, undefined, 2)}</pre>*/} (// для мониторинга)
                                       </div>
                                   )}
                               </Field>
@@ -47,9 +46,9 @@ const Login = (props) => {
                           {submitError && <div className="alert alert-danger mt-4">{submitError}</div>}
 
                           <div style={{marginTop: 30 + 'px'}}>
-                              <span>Email: free@samuraijs.com</span>
+                              <span>starrcraft@mail.ru</span>
                               <br/>
-                              <span>Password: free</span>
+                              <span>orlov123</span>
                           </div>
                       </form>
 

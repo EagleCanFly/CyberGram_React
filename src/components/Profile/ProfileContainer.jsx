@@ -1,6 +1,7 @@
 import {
+    changePhoto,
     deleteWallPost,
-    sendWallPost, setProfile, updateStatusText
+    sendWallPost, setProfile, togglePhotoEditMode, updateStatusText
 } from "../../redux/profilePageReducer";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -29,6 +30,12 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
         setMessage('');
     }
 
+    const onPhotoChosen = (event) => {
+        props.changePhoto(event.target.files[0]);
+    }
+    const onToggleSendPhotoMode = (value) => {
+        props.togglePhotoEditMode(value);
+    }
     const toggleEditMode = (value) => {
         setStatusEditMode(value);
         props.updateStatusText(status);
@@ -47,9 +54,11 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     localStatus={status}
                     onStatusChange={setStatus}
                     statusEditMode={statusEditMode}
-                    toggleEditMode={toggleEditMode}
+                    onToggleEditMode={toggleEditMode}
                     userId={userId}
                     onChangeHandler={onChangeHandler}
+                    onPhotoChosen={onPhotoChosen}
+                    onToggleSendPhotoMode={onToggleSendPhotoMode}
                     onSubmit={onSubmit}
                     deleteMessage={props.deleteWallPost}
                     message={message}
@@ -63,12 +72,13 @@ const mapStateToProps = (state) => {
         updatedText: state.profilePage.updatedText,
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        userId: state.auth.data.id
+        userId: state.auth.data.id,
+        isSendPhotoModeActive: state.profilePage.isSendPhotoModeActive
     };
 
 };
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {sendWallPost, deleteWallPost, setProfile, updateStatusText})
+    connect(mapStateToProps, {sendWallPost, deleteWallPost, setProfile, updateStatusText, changePhoto, togglePhotoEditMode})
 )(ProfileContainer);

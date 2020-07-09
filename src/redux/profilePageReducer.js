@@ -3,12 +3,15 @@ import {profileAPI} from "../DAL/api";
 const SEND_WALL_POST = "SEND-WALL-POST",
     DELETE_WALL_POST = 'DELETE_WALL_POST',
     SET_PROFILE_DATA = "SET_PROFILE_DATA",
-    SET_STATUS = "SET_STATUS";
+    SET_STATUS = "SET_STATUS",
+    UPDATE_PHOTO_SUCCESS = 'UPDATE_PHOTO_SUCCESS',
+    TOGGLE_PHOTO_EDIT_MODE = 'TOGGLE_PHOTO_EDIT_MODE';
 
 let initialState = {
     msgInfo: [],
     profile: null,
-    status: ''
+    status: '',
+    isSendPhotoModeActive: false
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -46,6 +49,16 @@ const profilePageReducer = (state = initialState, action) => {
                 status: action.status
             }
         }
+        case UPDATE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photoFile}
+            }
+        case TOGGLE_PHOTO_EDIT_MODE:
+            return {
+                ...state,
+                isSendPhotoModeActive: action.value
+            }
         default:
             return state;
     }
@@ -76,6 +89,18 @@ export const setStatus = (status) => {
         status
     }
 }
+export const updatePhotoSuccess = (photoFile) => {
+    return {
+        type: UPDATE_PHOTO_SUCCESS,
+        photoFile
+    }
+}
+export const togglePhotoEditMode = (value) => {
+    return {
+        type: TOGGLE_PHOTO_EDIT_MODE,
+        value
+    }
+}
 
 export const setProfile = (userId) => {
     return async (dispatch) => {
@@ -91,5 +116,11 @@ export const updateStatusText = (status) => {
         await profileAPI.updateStatus(status);
         dispatch(setStatus(status));
 
+    }
+}
+export const changePhoto = (file) => {
+    return async (dispatch) => {
+        const response = await profileAPI.uploadPhoto(file);
+        dispatch(updatePhotoSuccess(response.data.photos));
     }
 }

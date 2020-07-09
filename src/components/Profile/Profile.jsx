@@ -18,6 +18,18 @@ const Profile = (props) => {
             <div className={s.profile}>
                 <div className={s.avatar}><img src={props.profile.photos.large ? props.profile.photos.large : anonymous}
                                                alt="avatar"/></div>
+                <div className={'form-group'}>
+                    { props.isSendPhotoModeActive
+                        ? <input className={'form-control-file pt-4'} name={'file'} type="file" onChange={(event) => {
+                            props.onPhotoChosen(event);
+                            props.onToggleSendPhotoMode(false);
+                        }}/>
+
+                        : <button onClick={() => props.onToggleSendPhotoMode(true)} type="button" disabled={props.profile.userId !== props.userId}
+                                  className="btn btn-outline-secondary my-2">Change photo
+                        </button> }
+
+                </div>
                 {props.statusEditMode
                     ? <input className={s.statusInput}
                              autoFocus={true}

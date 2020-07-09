@@ -16,7 +16,7 @@ export const authAPI = {
         return instance.get('auth/me')
     },
     login(email, password) {
-        return instance.post(`auth/login`, {email,password})
+        return instance.post(`auth/login`, {email, password})
     },
     logout() {
         return instance.post('auth/logout');
@@ -33,6 +33,17 @@ export const profileAPI = {
     },
     getStatus(userId) {
         return instance.get('profile/status/' + userId).then(response => {
+            return response.data;
+        })
+    },
+    uploadPhoto(photoFile) {
+        const formdata = new FormData();
+        formdata.append('image', photoFile)
+        return instance.put('profile/photo/', formdata, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
             return response.data;
         })
     }
