@@ -1,7 +1,7 @@
 import {
     changePhoto,
     deleteWallPost,
-    sendWallPost, setProfile, togglePhotoEditMode, updateStatusText
+    sendWallPost, setProfile, togglePhotoEditMode, updateProfileInfo, updateStatusText
 } from "../../redux/profilePageReducer";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -14,12 +14,13 @@ import Loader from "../Loader/Loader";
 const ProfileContainer = ({setProfile, userId, ...props}) => {
 
     let [statusEditMode, setStatusEditMode] = useState(false);
+    let [statusFormEditMode, setFormStatusEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
     let [message, setMessage] = useState('');
 
     useEffect(
         () => {
-            setProfile(userId);
+          setProfile(userId);
         }, [setProfile, userId, props.match.params.userId]
     );
 
@@ -29,7 +30,11 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
         props.sendWallPost(parameters.message);
         setMessage('');
     }
+    const onFormSubmit = async (parameters) => {
 
+        await props.updateProfileInfo(parameters);
+        setFormStatusEditMode(false);
+    }
     const onPhotoChosen = (event) => {
         props.changePhoto(event.target.files[0]);
     }
@@ -39,6 +44,9 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
     const toggleEditMode = (value) => {
         setStatusEditMode(value);
         props.updateStatusText(status);
+    }
+    const toggleFormEditMode = (value) => {
+        setFormStatusEditMode(value);
     }
     const onChangeHandler = (event) => {
         setMessage(event.target.value);
@@ -54,12 +62,15 @@ const ProfileContainer = ({setProfile, userId, ...props}) => {
                     localStatus={status}
                     onStatusChange={setStatus}
                     statusEditMode={statusEditMode}
-                    onToggleEditMode={toggleEditMode}
+                    statusFormEditMode={statusFormEditMode}
+                    toggleEditMode={toggleEditMode}
+                    toggleFormEditMode={toggleFormEditMode}
                     userId={userId}
                     onChangeHandler={onChangeHandler}
                     onPhotoChosen={onPhotoChosen}
                     onToggleSendPhotoMode={onToggleSendPhotoMode}
                     onSubmit={onSubmit}
+                    onFormSubmit={onFormSubmit}
                     deleteMessage={props.deleteWallPost}
                     message={message}
 
@@ -73,12 +84,13 @@ const mapStateToProps = (state) => {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         userId: state.auth.data.id,
-        isSendPhotoModeActive: state.profilePage.isSendPhotoModeActive
+        isSendPhotoModeActive: state.profilePage.isSendPhotoModeActive,
+        isProfileEditModeActive: state.profilePage.isProfileEditModeActive
     };
 
 };
 export default compose(
     withAuthRedirect,
     withRouter,
-    connect(mapStateToProps, {sendWallPost, deleteWallPost, setProfile, updateStatusText, changePhoto, togglePhotoEditMode})
+    connect(mapStateToProps, {sendWallPost, deleteWallPost, setProfile, updateStatusText, updateProfileInfo, changePhoto, togglePhotoEditMode})
 )(ProfileContainer);

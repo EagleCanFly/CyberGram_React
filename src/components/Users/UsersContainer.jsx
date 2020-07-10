@@ -12,14 +12,14 @@ import React, {useEffect} from "react";
 import {compose} from "redux";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
-const UsersContainer = (props) => {
+const UsersContainer = ({getUsers, ...props}) => {
     useEffect(() => {
-        props.getUsers(props.state.userPages, props.state.currentPage);
-    }, []);
+        getUsers(props.state.currentPage);
+    }, [ props.state.currentPage, getUsers]);
 
     const onPageChange = (pageNumber) => {
         if (props.state.currentPage !== pageNumber) {
-            props.getUsersOnUpdate(props.state.userPages, pageNumber);
+            props.getUsersOnUpdate(pageNumber);
         }
     };
     return (

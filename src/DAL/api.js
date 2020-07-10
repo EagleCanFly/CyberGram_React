@@ -46,12 +46,16 @@ export const profileAPI = {
         }).then(response => {
             return response.data;
         })
+    },
+    updateProfileInfo(info) {
+        return instance.put('profile', info);
+
     }
 }
 
 export const userAPI = {
-    getUsers(count, page) {
-        return instance.get(`users?count=${count}&page=${page}`).then(response => {
+    getUsers(page) {
+        return instance.get(`users?count=4&page=${page}`).then(response => {
             return response.data;
         })
     },

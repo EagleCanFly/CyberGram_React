@@ -11,16 +11,14 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const LoginContainer = React.lazy(() => import('./components/Login/LoginContainer'))
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
-const Messages = React.lazy(() => import('./components/Messages/Messages'));
 
-const App = (props) => {
+const App = ({init, isInitialized}) => {
 
     useEffect(() => {
-        props.init();
+        init();
+    }, [init,isInitialized])
 
-    }, [props.isInitialized])
-
-    if (props.isInitialized === false) return <Redirect to={'/login'}/>
+    if (isInitialized === false) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.app}>
@@ -32,7 +30,6 @@ const App = (props) => {
                         <div className="content-wrapper col-7">
                             <Route path="/login" render={() => <LoginContainer/>}/>
                             <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                            <Route path="/messages" render={() => <Messages/>}/>
                             <Route path="/users" render={() => <UsersContainer/>}/>
                         </div>
                     </Suspense>

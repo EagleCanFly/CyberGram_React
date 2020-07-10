@@ -11,7 +11,8 @@ let initialState = {
     msgInfo: [],
     profile: null,
     status: '',
-    isSendPhotoModeActive: false
+    isSendPhotoModeActive: false,
+    isProfileEditModeActive: false
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -122,5 +123,11 @@ export const changePhoto = (file) => {
     return async (dispatch) => {
         const response = await profileAPI.uploadPhoto(file);
         dispatch(updatePhotoSuccess(response.data.photos));
+    }
+}
+export const updateProfileInfo = (profileInfo) => {
+    return async (dispatch) => {
+        await profileAPI.updateProfileInfo(profileInfo);
+        dispatch(setProfileData(profileInfo));
     }
 }
