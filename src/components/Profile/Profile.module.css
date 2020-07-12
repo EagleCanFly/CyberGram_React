@@ -23,9 +23,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+    /*align-items: flex-start;*/
     padding: 5px;
-    width: 50%;
+    width: 60%;
 }
 .profile span {
     padding: 5px 5px 5px 0;
@@ -33,4 +33,8 @@
 .label {
     color: #003366;
     font-weight: 700;
+}
+.confirmBtn {
+    margin-left: 51%;
+    width: 48%;
 }

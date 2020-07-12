@@ -10,11 +10,11 @@ import {Redirect} from "react-router-dom";
 const LoginContainer = (props) => {
 
     const onSubmit = async (parameters) => {
-        const response = await props.login(parameters.email, parameters.password);
+       await props.login(parameters.email, parameters.password, parameters.captcha);
 
         if (props.isAuth === true) {
             return <Redirect to='/profile'/>
-        } else if (response.data.resultCode === 1) {
+        } else  {
             return {[FORM_ERROR]: 'Login Failed'};
         }
     }
@@ -22,6 +22,7 @@ const LoginContainer = (props) => {
 
     return <Login login={props.login}
                   isAuth={props.isAuth}
+                  captchaUrl={props.captchaUrl}
                   isError={props.isError}
                   onSubmit={onSubmit}/>
 
@@ -29,7 +30,8 @@ const LoginContainer = (props) => {
 const mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
-        isError: state.auth.isError
+        isError: state.auth.isError,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 

@@ -17,6 +17,8 @@
     overflow: hidden;
 }
 .cross {
+    cursor: pointer;
+    color: red;
     position: absolute;
     right: 0;
     top: 0;

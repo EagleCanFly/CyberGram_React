@@ -15,11 +15,16 @@ export const authAPI = {
     authRequest() {
         return instance.get('auth/me')
     },
-    login(email, password) {
-        return instance.post(`auth/login`, {email, password})
+    login(email, password, captcha) {
+        return instance.post(`auth/login`, {email, password, captcha})
     },
     logout() {
         return instance.post('auth/logout');
+    }
+}
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get('security/get-captcha-url');
     }
 }
 export const profileAPI = {

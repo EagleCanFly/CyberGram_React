@@ -18,6 +18,7 @@ const UsersContainer = ({getUsers, ...props}) => {
     }, [ props.state.currentPage, getUsers]);
 
     const onPageChange = (pageNumber) => {
+        debugger
         if (props.state.currentPage !== pageNumber) {
             props.getUsersOnUpdate(pageNumber);
         }

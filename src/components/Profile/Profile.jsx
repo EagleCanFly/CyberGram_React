@@ -106,7 +106,7 @@ const Profile = (props) => {
                                                 )}
                                             </Field>))}</span>
                                     </div>
-                                    <button className={'btn btn-outline-secondary'}>Confirm</button>
+                                    <button className={`btn btn-secondary + ${s.confirmBtn}`}>Confirm</button>
                                 </form>
                             )}
                     />
@@ -120,7 +120,7 @@ const Profile = (props) => {
                             <div key={i} className={'pl-3 pt-2'}><b>{key}:</b> <a href={props.profile.contacts[key]}
                                                                                   target='_blank'
                                                                                   rel="noopener noreferrer">{props.profile.contacts[key]}</a></div>))}</span>
-                        <button className={'btn btn-outline-secondary'}
+                        <button className={'btn btn-outline-secondary w-50'}
                                 disabled={props.profile.userId !== props.userId}
                                 onClick={() => props.toggleFormEditMode(true)}>Change profile info</button>
                     </div>}

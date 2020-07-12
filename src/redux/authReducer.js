@@ -1,7 +1,8 @@
-import {authAPI} from "../DAL/api";
+import {authAPI, securityAPI} from "../DAL/api";
 
 const TOGGLE_IS_AUTH = 'TOGGLE_IS_AUTH',
-    TOGGLE_IS_ERROR = 'TOGGLE_IS_ERROR';
+    TOGGLE_IS_ERROR = 'TOGGLE_IS_ERROR',
+    SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
 let initialData = {
     data: {
@@ -12,6 +13,7 @@ let initialData = {
     },
     messages: [],
     resultCode: 0,
+    captchaUrl: null,
     isAuth: false,
     isError: false
 }
@@ -33,6 +35,12 @@ const authReducer = (state = initialData, action) => {
                 isError: action.value
             }
         }
+        case SET_CAPTCHA_URL: {
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
+            }
+        }
         default: {
             return state;
         }
@@ -52,6 +60,12 @@ export const toggleIsError = (value, data) => {
         value
     }
 };
+export const setCaptchaUrl = (captchaUrl) => {
+    return {
+        type: SET_CAPTCHA_URL,
+        captchaUrl
+    }
+}
 
 export const authorize = () => {
     return (dispatch) => {
@@ -62,17 +76,22 @@ export const authorize = () => {
         })
     }
 }
-export const login = (email, password) => {
+export const login = (email, password, captcha) => {
     return async (dispatch) => {
-        const response = await authAPI.login(email, password);
+        const response = await authAPI.login(email, password, captcha);
+
         if (response.data.resultCode === 0) {
             dispatch(toggleIsError(false));
+            dispatch(setCaptchaUrl(null));
             dispatch(toggleIsAuth(true, response.data));
             dispatch(authorize());
             return response;
         } else if (response.data.resultCode === 1) {
             dispatch(toggleIsError(true));
             return response;
+        } else if (response.data.resultCode === 10) {
+            const response = await securityAPI.getCaptcha();
+             dispatch(setCaptchaUrl(response.data.url));
         }
     }
 }

@@ -41,7 +41,12 @@ const Login = (props) => {
                                   )}
                               </Field>
                           </div>
-
+                          {props.captchaUrl &&
+                          <div className={'mt-3'}>
+                              <span>Enter the captcha</span>
+                              <img src={props.captchaUrl} alt="captcha"/>
+                             <Field name={'captcha'} component={"input"}/>
+                          </div>}
                           <button className={'btn btn-outline-secondary mt-4'} type="submit">Sign in</button>
                           {submitError && <div className="alert alert-danger mt-4">{submitError}</div>}
 

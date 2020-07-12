@@ -27,7 +27,7 @@ const App = ({init, isInitialized}) => {
                 <div className={'row'}>
                     <Suspense fallback={<div className={'col-6 m-auto'}><Loader/></div>}>
                         <Nav/>
-                        <div className="content-wrapper col-7">
+                        <div className="content-wrapper col-10">
                             <Route path="/login" render={() => <LoginContainer/>}/>
                             <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
                             <Route path="/users" render={() => <UsersContainer/>}/>

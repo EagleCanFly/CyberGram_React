@@ -129,10 +129,10 @@ export const getUsers = (userPages, currentPage) => {
         dispatch(setUsers(data.items));
     }
 }
-export const getUsersOnUpdate = (userPages, pageNumber) => {
+export const getUsersOnUpdate = (pageNumber) => {
     return async (dispatch) => {
         dispatch(toggleIsFetching(true));
-        const data = await userAPI.getUsers(userPages, pageNumber);
+        const data = await userAPI.getUsers(pageNumber);
             dispatch(toggleIsFetching(false));
             dispatch(setUsersPage(pageNumber));
             dispatch(setUsers(data.items));
