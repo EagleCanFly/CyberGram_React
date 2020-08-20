@@ -7,9 +7,7 @@ Due to API limitations this project can't be published. In the project directory
 
 Список технологий, использованных в проекте:
 
-  -Bootstrap
-  -css модули
-  -flux-архитектура
+  Bootstrap, css модули, flux-архитектура
   
   Библиотеки:
   
