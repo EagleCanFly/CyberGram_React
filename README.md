@@ -6,9 +6,12 @@ Due to API limitations this project can't be published. In the project directory
 
 
 Список технологий, использованных в проекте:
+
   -Bootstrap
   -css модули
+  
   Библиотеки:
+  
   react-final-form, react-router, rudux-thunk,
   Axios
   
