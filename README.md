@@ -4,7 +4,7 @@
 
 Due to API limitations this project can't be published. In the project directory, you can run: `npm install` `npm start`
 
-![alt text](screenshots/594936732.png "Описание будет тут")
+![alt text](/594936732.png "Описание будет тут")
 
 Список технологий, использованных в проекте:
 
