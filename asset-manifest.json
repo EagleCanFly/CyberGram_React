@@ -1,33 +1,29 @@
 {
   "files": {
-    "main.css": "/CyberGram_React/static/css/main.77d01bbd.chunk.css",
-    "main.js": "/CyberGram_React/static/js/main.368d4455.chunk.js",
-    "main.js.map": "/CyberGram_React/static/js/main.368d4455.chunk.js.map",
-    "runtime-main.js": "/CyberGram_React/static/js/runtime-main.a8c7f837.js",
-    "runtime-main.js.map": "/CyberGram_React/static/js/runtime-main.a8c7f837.js.map",
-    "static/js/2.ba323360.chunk.js": "/CyberGram_React/static/js/2.ba323360.chunk.js",
-    "static/js/2.ba323360.chunk.js.map": "/CyberGram_React/static/js/2.ba323360.chunk.js.map",
+    "main.css": "/CyberGram_React/static/css/main.72741335.chunk.css",
+    "main.js": "/CyberGram_React/static/js/main.ced8847e.chunk.js",
+    "main.js.map": "/CyberGram_React/static/js/main.ced8847e.chunk.js.map",
+    "runtime-main.js": "/CyberGram_React/static/js/runtime-main.584ba69f.js",
+    "runtime-main.js.map": "/CyberGram_React/static/js/runtime-main.584ba69f.js.map",
+    "static/js/2.55a4b403.chunk.js": "/CyberGram_React/static/js/2.55a4b403.chunk.js",
+    "static/js/2.55a4b403.chunk.js.map": "/CyberGram_React/static/js/2.55a4b403.chunk.js.map",
     "static/css/3.3378bbaa.chunk.css": "/CyberGram_React/static/css/3.3378bbaa.chunk.css",
-    "static/js/3.fde141a4.chunk.js": "/CyberGram_React/static/js/3.fde141a4.chunk.js",
-    "static/js/3.fde141a4.chunk.js.map": "/CyberGram_React/static/js/3.fde141a4.chunk.js.map",
-    "static/css/4.8b701b3c.chunk.css": "/CyberGram_React/static/css/4.8b701b3c.chunk.css",
-    "static/js/4.2e9a6874.chunk.js": "/CyberGram_React/static/js/4.2e9a6874.chunk.js",
-    "static/js/4.2e9a6874.chunk.js.map": "/CyberGram_React/static/js/4.2e9a6874.chunk.js.map",
-    "static/js/5.dfa1e008.chunk.js": "/CyberGram_React/static/js/5.dfa1e008.chunk.js",
-    "static/js/5.dfa1e008.chunk.js.map": "/CyberGram_React/static/js/5.dfa1e008.chunk.js.map",
+    "static/js/3.8e4e1b91.chunk.js": "/CyberGram_React/static/js/3.8e4e1b91.chunk.js",
+    "static/js/3.8e4e1b91.chunk.js.map": "/CyberGram_React/static/js/3.8e4e1b91.chunk.js.map",
+    "static/js/4.dedf723b.chunk.js": "/CyberGram_React/static/js/4.dedf723b.chunk.js",
+    "static/js/4.dedf723b.chunk.js.map": "/CyberGram_React/static/js/4.dedf723b.chunk.js.map",
     "index.html": "/CyberGram_React/index.html",
-    "precache-manifest.a422a9629978e28119618429fc085bdc.js": "/CyberGram_React/precache-manifest.a422a9629978e28119618429fc085bdc.js",
+    "precache-manifest.c07424d7bcd19cebb06f1c9b5c0dbdac.js": "/CyberGram_React/precache-manifest.c07424d7bcd19cebb06f1c9b5c0dbdac.js",
     "service-worker.js": "/CyberGram_React/service-worker.js",
     "static/css/3.3378bbaa.chunk.css.map": "/CyberGram_React/static/css/3.3378bbaa.chunk.css.map",
-    "static/css/4.8b701b3c.chunk.css.map": "/CyberGram_React/static/css/4.8b701b3c.chunk.css.map",
-    "static/css/main.77d01bbd.chunk.css.map": "/CyberGram_React/static/css/main.77d01bbd.chunk.css.map",
-    "static/js/2.ba323360.chunk.js.LICENSE.txt": "/CyberGram_React/static/js/2.ba323360.chunk.js.LICENSE.txt",
-    "static/js/3.fde141a4.chunk.js.LICENSE.txt": "/CyberGram_React/static/js/3.fde141a4.chunk.js.LICENSE.txt"
+    "static/css/main.72741335.chunk.css.map": "/CyberGram_React/static/css/main.72741335.chunk.css.map",
+    "static/js/2.55a4b403.chunk.js.LICENSE.txt": "/CyberGram_React/static/js/2.55a4b403.chunk.js.LICENSE.txt",
+    "static/js/3.8e4e1b91.chunk.js.LICENSE.txt": "/CyberGram_React/static/js/3.8e4e1b91.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.a8c7f837.js",
-    "static/js/2.ba323360.chunk.js",
-    "static/css/main.77d01bbd.chunk.css",
-    "static/js/main.368d4455.chunk.js"
+    "static/js/runtime-main.584ba69f.js",
+    "static/js/2.55a4b403.chunk.js",
+    "static/css/main.72741335.chunk.css",
+    "static/js/main.ced8847e.chunk.js"
   ]
 }
